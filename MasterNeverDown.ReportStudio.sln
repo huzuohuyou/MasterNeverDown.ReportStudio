@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AD2E02B-368B-425E-AF93-9466C35CDAC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{91EACA5F-F8E9-42FC-A021-E2DABB877F48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterNeverDown.ReportStudio.Model", "MasterNeverDown.ReportStudio.Model\MasterNeverDown.ReportStudio.Model.csproj", "{AB50D99B-9E46-4F00-A35E-9DB9B6CB4AE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterNeverDown.ReportStudio", "MasterNeverDown.ReportStudio\MasterNeverDown.ReportStudio.csproj", "{8E0C5AD9-330C-44F0-8969-611AC01BD00D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{90211B63-1D54-432F-BE9C-60166E1AA611}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterNeverDown.ReportStudio.ToolBar", "MasterNeverDown.ReportStudio.ToolBar\MasterNeverDown.ReportStudio.ToolBar.csproj", "{AA1038D6-E21C-41B1-B106-1F1DDBD9FCC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterNeverDown.ReportStudio.Test", "MasterNeverDown.ReportStudio.Test\MasterNeverDown.ReportStudio.Test.csproj", "{E4460DB4-74D2-41FC-8691-D3D707840C54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB50D99B-9E46-4F00-A35E-9DB9B6CB4AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB50D99B-9E46-4F00-A35E-9DB9B6CB4AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB50D99B-9E46-4F00-A35E-9DB9B6CB4AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB50D99B-9E46-4F00-A35E-9DB9B6CB4AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E0C5AD9-330C-44F0-8969-611AC01BD00D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E0C5AD9-330C-44F0-8969-611AC01BD00D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E0C5AD9-330C-44F0-8969-611AC01BD00D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E0C5AD9-330C-44F0-8969-611AC01BD00D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1038D6-E21C-41B1-B106-1F1DDBD9FCC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1038D6-E21C-41B1-B106-1F1DDBD9FCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1038D6-E21C-41B1-B106-1F1DDBD9FCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1038D6-E21C-41B1-B106-1F1DDBD9FCC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4460DB4-74D2-41FC-8691-D3D707840C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4460DB4-74D2-41FC-8691-D3D707840C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4460DB4-74D2-41FC-8691-D3D707840C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4460DB4-74D2-41FC-8691-D3D707840C54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AB50D99B-9E46-4F00-A35E-9DB9B6CB4AE9} = {6AD2E02B-368B-425E-AF93-9466C35CDAC6}
+		{8E0C5AD9-330C-44F0-8969-611AC01BD00D} = {6AD2E02B-368B-425E-AF93-9466C35CDAC6}
+		{AA1038D6-E21C-41B1-B106-1F1DDBD9FCC8} = {6AD2E02B-368B-425E-AF93-9466C35CDAC6}
+		{E4460DB4-74D2-41FC-8691-D3D707840C54} = {91EACA5F-F8E9-42FC-A021-E2DABB877F48}
+	EndGlobalSection
+EndGlobal

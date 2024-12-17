@@ -1,0 +1,274 @@
+﻿<CustomChromeWindow
+    x:Class="AakStudio.Shell.UI.Showcase.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AakStudio.Shell.UI.Showcase"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
+    xmlns:styles="clr-namespace:AakStudio.Shell.UI.Showcase.Styles"
+    xmlns:vm="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:reoGrid="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+    Title="MasterNeverDown.ReportStudio"
+    Width="1280"
+    Height="720"
+    d:DataContext="{d:DesignInstance Type=vm:WorkSpaceViewModel}"
+    Activated="MetroWindow_Activated"
+    ActiveGlowBrush="Gray"
+    DataContext="{x:Static vm:WorkSpaceViewModel.Default}"
+    Icon="pack://application:,,,/K.ico"
+    IsShowIcon="False"
+    IsShowTitle="False"
+    OnMaximizedPadding="0"
+    RenderOptions.BitmapScalingMode="Fant"
+    ResizeMode="CanResizeWithGrip"
+    SnapsToDevicePixels="True"
+    TextOptions.TextFormattingMode="Display"
+    TextOptions.TextRenderingMode="ClearType"
+    UseLayoutRounding="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <!-- <CustomChromeWindow.DataContext> -->
+    <!-- <vm:MainWindowViewModel x:Name="Vm" /> -->
+    <!-- </CustomChromeWindow.DataContext> -->
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=ReoGridControl}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+    <CustomChromeWindow.LeftWindowCommands>
+        <Grid Margin="4,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Viewbox
+                Width="16"
+                Height="16"
+                Margin="4,2,8,0"
+                VerticalAlignment="Top"
+                IsHitTestVisible="False">
+                <Rectangle
+                    Width="16"
+                    Height="16"
+                    Style="{StaticResource WindowIconRectangle}" />
+            </Viewbox>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Menu Grid.Column="1" Margin="0,2,0,0">
+                <MenuItem Header="File(_F)">
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="NewFile"
+                        Header="New" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="OpenFile"
+                        Header="Open" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="SaveFile"
+                        Header="Save" />
+                </MenuItem>
+                <MenuItem Header="View(_V)">
+                    <MenuItem
+                        Header="{Binding StyleSelector.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding StyleSelector.IsVisible, Mode=TwoWay}" />
+                    <MenuItem
+                        Header="{Binding DataSource.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding DataSource.IsVisible, Mode=TwoWay}" />
+                    <MenuItem
+                        Header="{Binding Template.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding Template.IsVisible, Mode=TwoWay}" />
+                    <MenuItem
+                        Header="{Binding Connection.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding Connection.IsVisible, Mode=TwoWay}" />
+                    <MenuItem
+                        Header="{Binding Parameter.Title}"
+                        IsCheckable="True"
+                        IsChecked="{Binding Parameter.IsVisible, Mode=TwoWay}" />
+                </MenuItem>
+         
+            </Menu>
+            </StackPanel>
+            
+            <Border
+                Grid.Column="2"
+                Margin="5,2,0,0"
+                VerticalAlignment="Top"
+                IsHitTestVisible="False">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                Value="True">
+                                <Setter Property="Background" Value="{DynamicResource SystemColorsWindowPanel}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock
+                    Margin="6,4,6,4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    TextTrimming="CharacterEllipsis">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                    Value="False">
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{DynamicResource EnvironmentMainWindowInactiveCaptionText}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </Grid>
+    </CustomChromeWindow.LeftWindowCommands>
+    <CustomChromeWindow.RightWindowCommands>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox
+                Width="180"
+                Margin="6"
+                VerticalAlignment="Top"
+                DisplayMemberPath="Name"
+                ItemsSource="{x:Static local:AakThemeCollection.AllThemes}"
+                SelectedItem="{Binding CurrentTheme, Mode=TwoWay}" />
+            <ComboBox
+                Width="100"
+                Margin="6"
+                VerticalAlignment="Top"
+                DisplayMemberPath="DisplayName"
+                ItemsSource="{Binding Languages}"
+                SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" />
+            <Button
+                Width="45"
+                Height="32"
+                VerticalAlignment="Top"
+                BorderBrush="{Binding Background, RelativeSource={RelativeSource Self}}"
+                Content="✨" />
+        </StackPanel>
+    </CustomChromeWindow.RightWindowCommands>
+    <Grid x:Name="root">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockingManager
+            x:Name="ReportDockingManager"
+            ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource AakActiveDocumentConverter}}"
+            ActiveContentChanged="DockingManager_ActiveContentChanged"
+            AnchorablesSource="{Binding Anchorables}"
+            DocumentTitleTemplate="{StaticResource AakDocumentWellTitleTemplate}"
+            DocumentsSource="{Binding DocumentViews}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="Loaded">
+                    <b:InvokeCommandAction Command="{Binding LoadedDockingManagerCommand}"
+                                           CommandParameter="{Binding ElementName=ReportDockingManager}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            <DockingManager.LayoutItemTemplateSelector>
+                <styles:AakTemplateSelector>
+                    <styles:AakTemplateSelector.AakDocumentWellTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                <Grid Margin="15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0" />
+                                        <RowDefinition Height="0" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Height="0"
+                                        FontSize="16"
+                                        FontWeight="Bold"
+                                        Text="{Binding Title}" />
+                                    <ContentPresenter Grid.Row="2" Content="{Binding View}" />
+                                </Grid>
+                            </ScrollViewer>
+                        </DataTemplate>
+                    </styles:AakTemplateSelector.AakDocumentWellTemplate>
+                    <styles:AakTemplateSelector.AakToolWellTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakToolWell}">
+                            <ContentPresenter Content="{Binding View}" />
+                        </DataTemplate>
+                    </styles:AakTemplateSelector.AakToolWellTemplate>
+                    <styles:AakTemplateSelector.AakCollectionTemplate>
+                        <DataTemplate DataType="{x:Type shell:AakCollection}">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                <Grid Margin="15">
+                                    <StackPanel>
+                                        <TextBlock FontSize="24" Text="{Binding Title}" />
+                                        <ItemsControl ItemsSource="{Binding Views, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Grid>
+                            </ScrollViewer>
+                        </DataTemplate>
+                    </styles:AakTemplateSelector.AakCollectionTemplate>
+                </styles:AakTemplateSelector>
+            </DockingManager.LayoutItemTemplateSelector>
+            <DockingManager.LayoutItemContainerStyleSelector>
+                <styles:AakStyleSelector>
+                    <styles:AakStyleSelector.AakDocumentWellStyle>
+                        <Style TargetType="{x:Type LayoutItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}" />
+                            <Setter Property="ToolTip" Value="{Binding Model.ToolTip}" />
+                            <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
+                        </Style>
+                    </styles:AakStyleSelector.AakDocumentWellStyle>
+                    <styles:AakStyleSelector.AakToolWellStyle>
+                        <Style TargetType="{x:Type LayoutAnchorableItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}" />
+                            <Setter Property="CanHide" Value="{Binding Model.CanHide, Mode=TwoWay}" />
+                            <Setter Property="Visibility"
+                                    Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}" />
+                            <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
+                        </Style>
+                    </styles:AakStyleSelector.AakToolWellStyle>
+                </styles:AakStyleSelector>
+            </DockingManager.LayoutItemContainerStyleSelector>
+
+            <LayoutRoot>
+                <LayoutPanel Orientation="Horizontal">
+                    <LayoutDocumentPaneGroup>
+                        <LayoutDocumentPane>
+                            <LayoutDocument Title="document" ContentId="刚建立的文档">
+                                <LayoutDocument.Content>
+                                    <TextBlock Text="Hello World" />
+                                </LayoutDocument.Content>
+                            </LayoutDocument>
+                          
+                        </LayoutDocumentPane>
+                        <LayoutDocumentPane />
+                    </LayoutDocumentPaneGroup>
+                </LayoutPanel>
+            </LayoutRoot>
+        </DockingManager>
+        <StatusBar
+            x:Name="mainStatusBar"
+            Grid.Row="1"
+            Background="{x:Null}"
+            Foreground="{DynamicResource SystemColorsWindowText}">
+            <StatusBarItem Margin="2,0,0,0" Content="Ready" />
+            <StatusBarItem
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Content="{Binding ActiveDocument, Converter={StaticResource AakViewElementToStringConverter}}"
+                ContentStringFormat="Selected: {0}" />
+        </StatusBar>
+    </Grid>
+</CustomChromeWindow>

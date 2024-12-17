@@ -1,0 +1,167 @@
+<Window x:Class="AakStudio.Shell.UI.Showcase.Views.PreviewTemplateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:reoGrid="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+        Title="Change Margins"
+        Closing="Window_Closing"
+        MinHeight="768"
+        MinWidth="1150"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        xmlns:viewModels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner" 
+        FocusManager.FocusedElement="{Binding ElementName=leftMarginTextBox}">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Foreground" Value="{DynamicResource CommonControlsTextBoxText}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="MinHeight" Value="18" />
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+
+        </Style>
+         <Style x:Key="ToolBarButtonBaseStyle1" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{DynamicResource CommonControlsButtonBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CommonControlsButtonBorder}" />
+        <Setter Property="Foreground" Value="{DynamicResource ToolBarButtonText}" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ToolBarButtonHover}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ToolBarButtonHoverBorder}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ToolBarButtonHoverText}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ToolBarButtonFocused}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ToolBarButtonFocusedBorder}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ToolBarButtonFocusedText}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ToolBarButtonPressed}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ToolBarButtonPressedBorder}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ToolBarButtonPressedText}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="{DynamicResource ToolBarButtonDisabled}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ToolBarButtonDisabledBorder}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ToolBarButtonDisabledText}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModels:PreviewTemplateViewModel  />
+    </Window.DataContext>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=ReoGridControl}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+    <ScrollViewer
+        MinWidth="1150"
+        HorizontalAlignment="Left"
+        HorizontalScrollBarVisibility="Auto">
+        <Border Background="{DynamicResource SystemColorsControl}">
+            <Grid Margin="10">
+        <Grid.Resources>
+            <!-- Default settings for controls -->
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,3,5,5" />
+                <Setter Property="Padding" Value="0,0,0,5" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="0,0,0,5" />
+            </Style>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Height" Value="25" />
+                <Setter Property="Margin" Value="5,0,0,0" />
+            </Style>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition  Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0 0 0 5"
+            
+            Name="ParameterContainer" 
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="Loaded">
+                    <b:InvokeCommandAction Command="{Binding LoadedParameterContainerCommand}"
+                                           CommandParameter="{Binding ElementName=ParameterContainer}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            <TextBlock Name="TemplateName"
+                   Width="150"
+                   VerticalAlignment="Center"
+                   Text="{Binding TemplateName}">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Loaded">
+                        <b:InvokeCommandAction Command="{Binding LoadedTemplateNameCommand}"
+                                               CommandParameter="{Binding ElementName=TemplateName}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <Button Width="80"  
+                    Margin="0 0 15 0"
+                    Style="{StaticResource ToolBarButtonBaseStyle1}"
+                    Command="{Binding QueryCommand, Mode=OneWay}"  >查询</Button>
+            <Button Width="80"
+                    
+                    Command="{Binding ResetCommand, Mode=OneWay}" 
+                    Style="{StaticResource ToolBarButtonBaseStyle1}">打印预览</Button>
+        </StackPanel>
+        <reoGrid:ReoGridControl Grid.ColumnSpan="2" 
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                SheetTabVisible="False"
+            SheetTabNewButtonVisible="False"
+            Readonly="False"
+            
+             x:Name="ReoGridControl" />
+    </Grid >
+        </Border>
+    </ScrollViewer>
+   
+</Window>

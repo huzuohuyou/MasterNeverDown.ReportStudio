@@ -1,0 +1,34 @@
+<UserControl x:Class="AakStudio.Shell.UI.Showcase.ControlViews.NumericInputControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="20" d:DesignWidth="72"  >
+    <StackPanel Orientation="Horizontal">
+        
+        <TextBlock  VerticalAlignment="Center" 
+                   Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
+        ></TextBlock>
+        
+        <TextBox x:Name="NumericTextBox" Width="30"
+                 Text="{Binding NumericValue, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
+        <StackPanel Orientation="Vertical">
+            <Button x:Name="IncrementButton" BorderThickness="0" Width="14" Height="11.5" Padding="0" 
+                    Click="IncrementButton_Click" >
+                <Image
+                    Margin="0"
+                    Source="/MasterNeverDown.ReportStudio;component/Assets/Images/SolarAltArrowUpLinear.png"
+                    Width="10" Height="10" />
+            </Button>
+            <Button x:Name="DecrementButton" BorderThickness="0" Width="14" Height="11" Padding="0" 
+                    Click="DecrementButton_Click"  >
+                <Image
+                    Margin="0"
+                    Source="/MasterNeverDown.ReportStudio;component/Assets/Images/SolarAltArrowDownLinear.png"
+                    Width="10" Height="10" />
+            </Button>
+
+        </StackPanel>
+       </StackPanel>
+</UserControl>

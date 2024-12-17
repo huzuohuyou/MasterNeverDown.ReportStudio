@@ -1,0 +1,84 @@
+<UserControl x:Class="AakStudio.Shell.UI.Showcase.Views.DataSourceEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:behaviors="clr-namespace:AakStudio.Shell.UI.Showcase.Behaviors"
+             xmlns:viewModels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
+             xmlns:editors="clr-namespace:AakStudio.Shell.UI.Showcase.Editors"
+             xmlns:resources="clr-namespace:MasterNeverDown.ReportStudio.ToolBar.Resources;assembly=MasterNeverDown.ReportStudio.ToolBar"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="880">
+    
+    <UserControl.DataContext>
+        <viewModels:DataSourceEditorViewModel  />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="1*" />
+
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" >
+            <Label  VerticalAlignment="Center"  Content="{Binding [Name], Source={x:Static resources:LanguageManager.Instance}}" 
+            ></Label>
+            <TextBox Width="150" Text="{Binding DataSource.Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label  VerticalAlignment="Center" Content="{Binding [Connection], Source={x:Static resources:LanguageManager.Instance}}"> </Label> 
+            <ComboBox Width="150"
+                      SelectedItem="{Binding DataSource.Connection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     
+                      ItemsSource="{Binding Connections}" />
+            <Button IsDefault="True" Margin="5 0" Height="22" Width="80" Command="{Binding SaveCommand}">OK</Button> 
+            <Button  Margin="5 0" Height="22" Width="80" Command="{Binding ExecuteCommand}">Eexcute</Button> 
+
+            <Button Margin="5 0" Height="22" Width="80">Cancel</Button> 
+        </StackPanel>
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Background="{DynamicResource EnvironmentCommandBarToolBarSeparator}">
+                <editors:SqlEditor
+                    FontFamily="Consolas"
+                    Background="{DynamicResource CommonControlsTextBoxBackground}"
+                    SyntaxHighlighting="SQL"
+                    FontSize="14"
+                    
+                    WordWrap="True"
+                    LineNumbersForeground="#FFD8D8D8"
+                    ShowLineNumbers="True"
+                    Text="{Binding DataSource.Script, NotifyOnSourceUpdated=True, Mode=TwoWay}">
+                    <i:Interaction.Behaviors>
+                        <!-- <behaviors:DocumentTextBindingBehavior Text="{Binding InputString, Mode=TwoWay}"/> -->
+                        <behaviors:AvalonEditBehaviour InputText="{Binding InputString}" />
+                    </i:Interaction.Behaviors>
+                </editors:SqlEditor>
+            </Border>
+            <GridSplitter
+                Grid.Row="0" Height="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom" />
+            <Border Grid.Row="1" Background="{DynamicResource EnvironmentCommandBarToolBarSeparator}">
+                <editors:JsonEditor
+                    FontFamily="Consolas"
+                    Background="{DynamicResource CommonControlsTextBoxBackground}"
+                    SyntaxHighlighting="JSON"
+                    FontSize="14"
+                    WordWrap="True"
+                    LineNumbersForeground="#FFD8D8D8"
+                    ShowLineNumbers="True"
+                    Text="{Binding LastResult, NotifyOnSourceUpdated=True, Mode=TwoWay}">
+                    <i:Interaction.Behaviors>
+                        <!-- <behaviors:DocumentTextBindingBehavior Text="{Binding InputString, Mode=TwoWay}"/> -->
+                        <behaviors:AvalonEditBehaviour InputText="{Binding LastResult}" />
+                    </i:Interaction.Behaviors>
+                </editors:JsonEditor>
+            </Border>
+        </Grid>
+       
+       
+       
+    </Grid>
+</UserControl>

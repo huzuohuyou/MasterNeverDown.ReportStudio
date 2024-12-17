@@ -1,0 +1,117 @@
+<UserControl x:Class="AakStudio.Shell.UI.Showcase.Editors.ReportDesigner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:reoGrid1="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+             mc:Ignorable="d"
+             Loaded="ReportDesigner_OnLoaded"
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center" Background="#1f1f1f" Margin="0">
+            <Button Width="35">参数</Button>
+        </StackPanel>
+         <ToolBarTray  Grid.Row="1" Margin="0,0,0,0" Background="#1f1f1f">
+                <ToolBar BandIndex="1">
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe679;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="NewFile" />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xebdf;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="OpenFile" />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xec09;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="SaveFile"/>
+                    <Separator />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe74f;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Underline"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe655;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Underline"/>
+                    <Separator />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe622;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Bold"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe731;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Italic"/>
+                  
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe6d3;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Underline"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xec80;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="HorizontalAlignCenter"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe71d;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="HorizontalAlignRight"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe600;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="HorizontalAlignLeft"/>
+                   
+                    <Separator />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xf306;" ToolBar.OverflowMode="Never" 
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="BoldSolidOutside"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xf308;" ToolBar.OverflowMode="Never" 
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="BoldSolidInnerSide"/>
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xf307;" ToolBar.OverflowMode="Never" 
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="BoldSolidBottom" />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xf326;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="BoldSolidRight" />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xf325;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="BoldSolidLeft" />
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xf30f;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="BoldSolidTop" />
+                    
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe699;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Copy" />
+                    <Separator />
+                    
+                    <Button  Style="{StaticResource ToolBar}"   
+                             Content="&#xe632;" ToolBar.OverflowMode="Never"
+                             Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                             CommandParameter="Copy" />
+                    <Button Content="--" />
+                </ToolBar>
+               
+            </ToolBarTray>
+        <reoGrid1:ReoGridControl
+            SheetTabVisible="False"
+            SheetTabNewButtonVisible="False"
+            Readonly="False"
+            
+            MouseDown="ReoGridControl_MouseDown"
+            Grid.Row="2" x:Name="ReoGridControl" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,821 @@
+<UserControl x:Class="AakStudio.Shell.UI.Showcase.ControlViews.ReportDesigner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:reoGrid="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+             xmlns:converters="clr-namespace:AakStudio.Shell.UI.Showcase.Converters"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:viewModels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
+            
+             xmlns:svg="https://github.com/dotnetprojects/SVGImage"
+             xmlns:controlViews="clr-namespace:AakStudio.Shell.UI.Showcase.ControlViews"
+
+             d:DesignHeight="768" d:DesignWidth="1366">
+    <UserControl.Resources>
+        <converters:MultiValueConverter x:Key="MultiValueConverter" />
+        <converters:ColorEventArgsConverter x:Key="MyColorEventArgsConverter" />
+        <viewModels:WorkSpaceViewModel x:Key="WorkSpaceViewModel" />
+        
+   
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewModels:TemplateEditorViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="0 5 5 0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource ToolBar}"
+                            ToolBar.OverflowMode="Never" x:Name="NewFile"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFileAdd1.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="NewFile" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolBar}" x:Name="OpenFile"
+                           
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFolderOpen1.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="OpenFile" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <!-- Undo -->
+                    <Button x:Name="Undo" Style="{StaticResource ToolBar}"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiUndoVariant.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Undo" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <!-- Redo -->
+                    <Button x:Name="Redo" Style="{StaticResource ToolBar}"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiRedoVariant.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Redo" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button x:Name="SaveFile" Style="{StaticResource ToolBar}"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding SaveCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignHardDiskStorage.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="SaveFile" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <ComboBox Width="150"
+                              Margin="10 5 10 0 "
+                              Name="DataSourceComboBox"
+                              SelectedItem="{Binding SelectedDataSource}"
+                              ItemsSource="{Binding DateSources}">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="Loaded">
+                                <b:InvokeCommandAction
+                                    Command="{Binding LoadedDataSourceComboBoxCommand}"
+                                    CommandParameter="{Binding ElementName=DataSourceComboBox}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>File</Label>
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal">
+                <!-- ReSharper disable once UnusedMember.Global -->
+
+            </StackPanel>
+
+
+            <Popup x:Name="PopupElement"
+
+                   StaysOpen="False" Placement="Bottom">
+                <hc:ColorPicker Name="SelectColor" Tag="FillColor" Margin="0" Canceled="ColorPicker_OnCanceled">
+                    <hc:Interaction.Triggers>
+                        <hc:EventTrigger EventName="Confirmed">
+                            <hc:EventToCommand Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                                               PassEventArgsToCommand="True">
+                                <hc:EventToCommand.CommandParameter>
+                                    <MultiBinding
+                                        Converter="{StaticResource MultiValueConverter}">
+                                        <Binding ElementName="Grid" />
+                                        <Binding ElementName="SelectColor" />
+                                        <Binding ElementName="PopupElement" />
+                                    </MultiBinding>
+                                </hc:EventToCommand.CommandParameter>
+                            </hc:EventToCommand>
+                        </hc:EventTrigger>
+                    </hc:Interaction.Triggers>
+                </hc:ColorPicker>
+            </Popup>
+            <Separator />
+            <Border BorderThickness="1" Margin="0 5 5 5" Width="1" BorderBrush="Gray"> </Border>
+            <StackPanel Orientation="Vertical" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    
+                    <ToggleButton Style="{StaticResource ToggleToolBar}" x:Name="Bold"
+                                  Margin="3 0 0 0"
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerBold.png"
+                            Width="18" Height="18" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Bold" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="Italic"
+                           
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerItalic.png"
+                            Width="18" Height="18" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Italic" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+
+
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="Underline"
+                            
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/RiUnderline.png"
+                            Width="18" Height="18" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Underline" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+                    <Separator />
+                    <Button x:Name="FontColor" Width="28" Style="{StaticResource ToolBar}" 
+                            
+                            Click="Select_Color_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel x:Name="TextColor" Width="4" Margin="0"></StackPanel>
+
+                            <Image
+                                Margin="4 0 0 0"
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/RiFontColor.png"
+                            Width="18" Height="18" />
+                        </StackPanel>
+                    </Button>
+                    <!-- ReSharper disable once UnusedMember.Global -->
+                    <Button Width="28" x:Name="FillColor" Style="{StaticResource ToolBar}" 
+                            Click="Select_Color_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel x:Name="BackColor" Width="4" Margin="0"></StackPanel>
+                            <Image
+                                Margin="4 0 0 0"
+                                Source="/MasterNeverDown.ReportStudio;component/Assets/Images/RiPaintFill.png"
+                                Width="18" Height="18" />
+                        </StackPanel>
+                       
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <ComboBox x:Name="FontName" Width="150" SelectedIndex="0" Margin="5 0 0 0 ">
+                        <ComboBoxItem>等线</ComboBoxItem>
+                        <ComboBoxItem>13</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>15</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox  x:Name="FontSize" Width="40" SelectedIndex="0" Margin="5 0 0 0 ">
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                        <ComboBoxItem>10</ComboBoxItem>
+                        <ComboBoxItem>11</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>13</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>15</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>17</ComboBoxItem>
+                        <ComboBoxItem>18</ComboBoxItem>
+                    </ComboBox>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="Increase"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/FluentFontIncrease24Filled.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Increase" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="Decrease"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/FluentFontDecrease24Filled.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="Decrease" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Font</Label>
+                </StackPanel>
+            </StackPanel>
+            <Border BorderThickness="1" Margin="0 5 5 5" Width="1" BorderBrush="Gray"> </Border>
+            <StackPanel Orientation="Vertical" Margin="2 5 ">
+                <StackPanel Orientation="Horizontal" Margin="2 0 0 0">
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="HorizontalAlignCenter"
+                             
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFormatVerticalAlignCenter.png"
+                            Width="18" Height="18" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="HorizontalAlignCenter" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="HorizontalAlignRight"
+                            
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFormatVerticalAlignRight.png"
+                            Width="18" Height="18" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="HorizontalAlignRight" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="HorizontalAlignLeft"
+                            
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFormatVerticalAlignLeft.png"
+                            Width="18" Height="18" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="HorizontalAlignLeft" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="VerticalAlignMiddle"
+                           
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerAlignBoxCenterMiddle.png"
+                            Width="20" Height="20" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="VerticalAlignMiddle" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="VerticalAlignTop"
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerAlignBoxCenterTop.png"
+                            Width="20" Height="20" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="VerticalAlignTop" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource ToggleToolBar}"
+                                  Name="VerticalAlignBottom"
+                           
+                                  ToolBar.OverflowMode="Never"
+                                  Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerAlignBoxLeftBottom.png"
+                            Width="20" Height="20" />
+                        <ToggleButton.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="VerticalAlignBottom" />
+                            </MultiBinding>
+                        </ToggleButton.CommandParameter>
+                    </ToggleButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Alignment</Label>
+                </StackPanel>
+            </StackPanel>
+
+            <Border BorderThickness="1" Margin="0 5 5 5" Width="1" BorderBrush="Gray"> </Border>
+            <StackPanel Orientation="Vertical" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="-8 0 5 5">
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="BoldSolidOutside"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiBorderAllVariant.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="BoldSolidOutside" />
+                                <Binding ElementName="BorderStyle" Path="Text" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="BoldSolidInnerSide"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/AntDesignBorderInnerOutlined.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="BoldSolidInnerSide" />
+                                <Binding ElementName="BorderStyle" Path="SelectedValue" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="BoldSolidBottom"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiBorderBottomVariant.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="BoldSolidBottom" />
+                                <Binding ElementName="BorderStyle" Path="SelectedValue" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="BoldSolidRight"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiBorderRightVariant.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="BoldSolidRight" />
+                                <Binding ElementName="BorderStyle" Path="SelectedValue" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="BoldSolidLeft"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiBorderLeftVariant.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="BoldSolidLeft" />
+                                <Binding ElementName="BorderStyle" Path="SelectedValue" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="BoldSolidTop"
+                             ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiBorderTopVariant.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="BoldSolidTop" />
+                                <Binding ElementName="BorderStyle" Path="SelectedValue" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="NoBorder"
+                             ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiBorderNoneVariant.png"
+                            Width="20" Height="20" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="NoBorder" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <ComboBox x:Name="BorderStyle" Width="120" SelectedIndex="0">
+                        <ComboBoxItem>Solid</ComboBoxItem>
+                        <ComboBoxItem>Dotted</ComboBoxItem>
+                        <ComboBoxItem>Dashed</ComboBoxItem>
+                        <ComboBoxItem>Dashed2</ComboBoxItem>
+                        <ComboBoxItem>DashDotDot</ComboBoxItem>
+                        <ComboBoxItem>Bold Solid</ComboBoxItem>
+                        <ComboBoxItem>Bold Dotted</ComboBoxItem>
+                        <ComboBoxItem>Bold Dashed</ComboBoxItem>
+                        <ComboBoxItem>Bold DashDot</ComboBoxItem>
+                        <ComboBoxItem>Bold DashDotDot</ComboBoxItem>
+                        <ComboBoxItem>Strong Solid</ComboBoxItem>
+                        <ComboBoxItem>DoubleLine</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Visibility="Collapsed" x:Name="SelectSolidColor" Width="40" Margin="5 0 0 0" ></ComboBox>
+                    <Button Width="28" x:Name="BorderColor" Style="{StaticResource ToolBar}" 
+                            Click="Select_Color_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel x:Name="DisplayBorderColor" Width="4" Margin="0"></StackPanel>
+                            <Image
+                                Margin="4 0 0 0"
+                                Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiPaletteOutline.png"
+                                Width="18" Height="18" />
+                        </StackPanel>
+                       
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Border</Label>
+                </StackPanel>
+            </StackPanel>
+            <Border BorderThickness="1" Margin="0 5 5 5" Width="1" BorderBrush="Gray"> </Border>
+            <StackPanel Orientation="Vertical" Margin="5" Width="210">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="MergeRange"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiTableMergeCells.png"
+                            Width="22" Height="22" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="MergeRange" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="UnMergeRange"
+                            Margin="5 0 60 0"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiTableSplitCell.png"
+                            Width="22" Height="22" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="UnMergeRange" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    
+                    <controlViews:NumericInputControl
+                        HorizontalAlignment="Right"
+                        x:Name="Rows" Title="Row ："
+                        Grid="{Binding ElementName=Grid}"
+                        IncrementValue="OnIncrementValue"
+                        DecrementValue="OnDecrementValue"
+                        NumericValue="{Binding RowCount, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                        >
+                    </controlViews:NumericInputControl>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 2 2 2">
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="FreezeRow"
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+
+                        <Image
+                            Source="{Binding Converter={svg:SvgIconConverter AppName=IconConverterSample}, ConverterParameter=/MasterNeverDown.ReportStudio;component/Assets/Images/TablerFreezeRow.svg, Mode=OneWay}"
+                            Width="16" Height="16" />
+
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="FreezeRow" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="FreezeColumn"
+                            
+                             ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="{Binding Converter={svg:SvgIconConverter AppName=IconConverterSample}, ConverterParameter=/MasterNeverDown.ReportStudio;component/Assets/Images/TablerFreezeColumn.svg, Mode=OneWay}"
+                            Width="16" Height="16" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="FreezeColumn" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="FreezeRowColumn"
+                            
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="{Binding Converter={svg:SvgIconConverter AppName=IconConverterSample}, ConverterParameter=/MasterNeverDown.ReportStudio;component/Assets/Images/TablerFreezeRowColumn.svg, Mode=OneWay}"
+                            Width="16" Height="16" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="FreezeRowColumn" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    
+                    
+                    <controlViews:NumericInputControl 
+                        Margin="25 0 0 0"
+                        HorizontalAlignment="Right"
+                        x:Name="Columns"
+                        Title="Col ："
+                        IncrementValue="Columns_OnIncrementValue"
+                        DecrementValue="Columns_OnDecrementValue"
+                        NumericValue="{Binding ColumnCount, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                    >
+                    </controlViews:NumericInputControl>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Page</Label>
+                </StackPanel>
+            </StackPanel>
+            <!-- todo: 单元格样式-->
+            <Border BorderThickness="1" Margin="0 5 5 5" Width="1" BorderBrush="Gray"> </Border>
+            <StackPanel Orientation="Vertical" Margin="5 " Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="HorizontalAlignCenter1"
+
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFormatVerticalAlignCenter.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="HorizontalAlignCenter" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="HorizontalAlignRight1"
+
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFormatVerticalAlignRight.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="HorizontalAlignRight" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="HorizontalAlignLeft1"
+
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TdesignFormatVerticalAlignLeft.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="HorizontalAlignLeft" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="VerticalAlignTop1"
+                           
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerAlignBoxCenterMiddle.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="VerticalAlignTop" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="VerticalAlignCenter1"
+                           
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerAlignBoxCenterTop.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="VerticalAlignCenter" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Style="{StaticResource ToolBar}"
+                            Name="VerticalAlignBottom1"
+                           
+                            ToolBar.OverflowMode="Never"
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                        <Image
+                            Source="/MasterNeverDown.ReportStudio;component/Assets/Images/TablerAlignBoxLeftBottom.png"
+                            Width="18" Height="18" />
+                        <Button.CommandParameter>
+                            <MultiBinding
+                                Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="Grid" />
+                                <Binding ElementName="VerticalAlignBottom" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Format</Label>
+                </StackPanel>
+            </StackPanel>
+            <Border BorderThickness="1" Margin="0 5 5 5" Width="1" BorderBrush="Gray" Visibility="Collapsed"> </Border>
+            <Button Style="{StaticResource ToolBar}"
+                     ToolBar.OverflowMode="Never"
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}">
+                <Image
+                    Source="/MasterNeverDown.ReportStudio;component/Assets/Images/MdiFileImageOutline.png"
+                    Width="20" Height="20" />
+                <Button.CommandParameter>
+                    <MultiBinding
+                        Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="Grid" />
+                        <Binding ElementName="Italic" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button 
+                Width="40" Height="40"
+                    Style="{StaticResource ToolBar}"
+                    Command="{Binding PreviewCommand, Mode=OneWay}" >
+                <Image
+                    Source="/MasterNeverDown.ReportStudio;component/Assets/Images/IconParkOutlinePreviewOpen.png"
+                    Width="36" Height="36" />
+            </Button>
+            
+            
+        </StackPanel>
+
+        <reoGrid:ReoGridControl
+            SheetTabVisible="False"
+            ShowScrollEndSpacing="False"
+            Readonly="False"
+            Loaded="Grid_OnLoaded"
+            Grid.Row="2" x:Name="Grid" >
+            
+        </reoGrid:ReoGridControl>
+    </Grid>
+</UserControl>

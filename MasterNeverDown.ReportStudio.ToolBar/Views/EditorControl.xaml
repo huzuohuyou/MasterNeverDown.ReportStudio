@@ -1,0 +1,448 @@
+﻿<Page x:Class="ReportEditor.Views.EditorControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      xmlns:rg="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      xmlns:viewModels="clr-namespace:ReportEditor.ViewModels"
+      xmlns:avalondock="https://github.com/Dirkster99/AvalonDock"
+      xmlns:aakthemes="http://aakstudio.themes.avalondock"
+
+      mc:Ignorable="d">
+   
+    <Page.DataContext>
+        <viewModels:EditorControlViewModel x:Name="Vm" />
+    </Page.DataContext>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=grid}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ui:TitleBar
+                Title="WPF UI - Editor"
+                Grid.Row="0"
+                Icon="pack://application:,,,/Assets/wpfui.png" />
+
+            <Menu Grid.Row="1"
+                  Background="Transparent"
+                  FontSize="14">
+                <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="NewFile"
+                        Header="New" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="NewWindow"
+                        Header="New window" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="OpenFile"
+                        Header="Open..." />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="SaveFile"
+                        Header="Save" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="SaveFileAs"
+                        Header="Save As..." />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="Exit"
+                        Header="Exit" />
+                </ui:MenuItem>
+                <ui:MenuItem Header="Edit" Icon="{ui:SymbolIcon DocumentEdit20}">
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="EditUndo"
+                        Header="Undo" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="editCut"
+                        Header="Cut" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="Copy"
+                        Header="Copy" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="editPaste"
+                        Header="Paste" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="editDelete"
+                        Header="Delete"
+                        IsEnabled="False" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="browserSearch"
+                        Header="Search with browser" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="find"
+                        Header="Find..." />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="findNext"
+                        Header="Find next" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="selectAll"
+                        Header="Select All" />
+                </ui:MenuItem>
+                <Separator />
+                <ui:MenuItem Header="表示" Icon="{ui:SymbolIcon DocumentEdit20}">
+
+                </ui:MenuItem>
+                <ui:MenuItem Header="单元格" Icon="{ui:SymbolIcon DocumentEdit20}">
+
+                </ui:MenuItem>
+                <ui:MenuItem Header="工作表" Icon="{ui:SymbolIcon DocumentEdit20}">
+
+                </ui:MenuItem>
+                <ui:MenuItem Header="公式" Icon="{ui:SymbolIcon DocumentEdit20}">
+
+                </ui:MenuItem>
+                <ui:MenuItem Header="脚本" Icon="{ui:SymbolIcon DocumentEdit20}">
+
+                </ui:MenuItem>
+                <ui:MenuItem Header="工具" Icon="{ui:SymbolIcon DocumentEdit20}">
+
+                </ui:MenuItem>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    CommandParameter="textBold"
+                    Icon="{ui:SymbolIcon Merge24}" />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    CommandParameter="textItalic"
+                    Icon="{ui:SymbolIcon TextItalic20}" />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    CommandParameter="textUnderline"
+                    Icon="{ui:SymbolIcon DocumentEdit20}" />
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    CommandParameter="textFont"
+                    Icon="{ui:SymbolIcon TextFont20}" />
+                <Separator />
+                <ui:MenuItem Header="Format" Icon="{ui:SymbolIcon ScanText24}">
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="wordWrap"
+                        Header="Word wrap"
+                        IsCheckable="True"
+                        IsChecked="False" />
+                </ui:MenuItem>
+                <ui:MenuItem Header="View" Icon="{ui:SymbolIcon CalendarWeekStart24}">
+                    <MenuItem Header="Zoom">
+                        <MenuItem
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                            CommandParameter="zoomIn"
+                            Header="Zoom in" />
+                        <MenuItem
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                            CommandParameter="zoomOut"
+                            Header="Zoom out" />
+                        <MenuItem
+                            Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                            CommandParameter="zoomRestore"
+                            Header="Restore default zoom" />
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="statusBar"
+                        Header="Status bar"
+                        IsCheckable="True"
+                        IsChecked="{Binding ViewModel.IsWordWrapEnbaled, Mode=TwoWay}" />
+                </ui:MenuItem>
+                <Separator />
+                <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="viewHelp"
+                        Header="View help" />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="viewFeedback"
+                        Header="Send feedback" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        CommandParameter="viewAbout"
+                        Header="About WPF UI" />
+                </ui:MenuItem>
+            </Menu>
+            <Menu Grid.Row="2"
+                  Background="Transparent"
+                  FontSize="14">
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon New24}" ToolTip="新建" 
+                    CommandParameter="NewFile"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon FolderOpen24}" ToolTip="打开" 
+                    CommandParameter="OpenFile"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon Save24}" ToolTip="保存" 
+                    CommandParameter="SaveFile"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon PreviewLink24}" ToolTip="打印预览" />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon Copy24}" ToolTip="复制"
+                    CommandParameter="Copy"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon Cut24}" ToolTip="剪切"
+                    CommandParameter="Cut"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ClipboardPaste24}" ToolTip="粘贴"
+                    CommandParameter="Paste"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextEditStyle24}" ToolTip="格式刷"
+                    CommandParameter="StartPickRangeAndCopyStyle"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ArrowUndo24}" ToolTip="撤销"
+                    CommandParameter="Undo"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ArrowRedo24}" ToolTip="重复"
+                    CommandParameter="Redo"/>
+                
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderOutside24}" ToolTip="外边框">
+                    <ui:MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        Icon="{ui:SymbolIcon BorderOutside24}" ToolTip="Solid"  Header="边框"
+                        CommandParameter="BorderLineStyleSolid"/>
+                    <ui:MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        Icon="{ui:SymbolIcon BorderOutside24}" ToolTip="Bold" Header="粗边框"
+                        CommandParameter="BorderLineStyleBoldSolid"/>
+                    <ui:MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        Icon="{ui:SymbolIcon BorderOutside24}" ToolTip="Dotted" Header="点边框"
+                        CommandParameter="BorderLineStyleDotted"/>
+                    <ui:MenuItem
+                        Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                        Icon="{ui:SymbolIcon BorderOutside24}" ToolTip="Dashed" Header="线段边框"
+                        CommandParameter="BorderLineStyleDashed"/>
+                </ui:MenuItem>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderOutside24}" ToolTip="内边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderAll24}" ToolTip="全边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderNone24}" ToolTip="无边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderTopBottomThick24}" ToolTip="上下边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderLeftRight24}" ToolTip="左右边框" />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderTop24}" ToolTip="上边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderBottom24}"  ToolTip="下边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderLeft24}" ToolTip="左边框"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon BorderRight24}" ToolTip="右边框"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon SlashForward24}" ToolTip="左斜线"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon Backspace24}" ToolTip="右斜线"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TableCellsMerge24}" ToolTip="合并单元格"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TableCellsMerge24}" ToolTip="拆分单元格"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ColorFill24}" ToolTip="背景填充"/>
+     
+
+            </Menu>
+            <Menu Grid.Row="3"
+                  Background="Transparent"
+                  FontSize="14">
+                <!-- <ui:DropDownButton></ui:DropDownButton> -->
+                <!--   <ui:DropDownButton></ui:DropDownButton> -->
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ResizeLarge24}" ToolTip="字体变大"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ResizeSmall24}" ToolTip="字体变小"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon PreviewLink24}" />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextColor24}" ToolTip="字体颜色"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextBold24}" ToolTip="粗体"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextItalic24}" ToolTip="斜体"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextUnderline24}" ToolTip="下划线"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextStrikethrough24}" ToolTip="删除线"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextWrap24}" ToolTip="换行"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextAlignLeft24}" ToolTip="居左"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextAlignCenter24}" ToolTip="居中"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextAlignRight24}" ToolTip="居右"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextAlignDistributed24}" ToolTip="分散"/>
+                <Separator />
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextboxAlignTop24}" ToolTip="居上"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextAlignCenter24}" ToolTip="垂直居中"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon TextboxAlignBottom24}" ToolTip="居下"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ZoomIn24}" ToolTip="放大"/>
+                <ui:MenuItem
+                    Command="{Binding ToolBarExecuteCommand, Mode=OneWay}"
+                    Icon="{ui:SymbolIcon ZoomOut24}" ToolTip="放小"/>
+            </Menu>
+            <DockPanel Grid.Row="4">
+            <avalondock:DockingManager x:Name="uxDockingManager"
+                                       AllowMixedOrientation="True"
+                                       DocumentsSource="{Binding Documents}"
+                                       ActiveContent="{Binding CurrentDocument, Mode=TwoWay}">
+                <avalondock:DockingManager.Theme>
+                    <aakthemes:VisualStudio2022Light />
+                </avalondock:DockingManager.Theme>
+                <avalondock:LayoutRoot>
+                    <avalondock:LayoutPanel Orientation="Horizontal">
+                        <avalondock:LayoutDocumentPaneGroup>
+                            <avalondock:LayoutDocumentPane x:Name="uxDocumentPane" >
+                                <avalondock:LayoutDocument Title="document" ContentId="刚建立的文档">
+                                    <rg:ReoGridControl x:Name="grid">
+                                    </rg:ReoGridControl>
+                                </avalondock:LayoutDocument>
+                              
+                            </avalondock:LayoutDocumentPane>
+                            
+                          
+                        </avalondock:LayoutDocumentPaneGroup>
+                       
+                        
+                        <avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorable Title="Properties" ContentId="Properties">
+                  
+                            </avalondock:LayoutAnchorable>
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutPanel>
+                    
+                </avalondock:LayoutRoot>
+            </avalondock:DockingManager>
+            </DockPanel>
+            
+            <StatusBar x:Name="RootStatusBar" Grid.Row="5">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding Mode="OneWay" StringFormat="{}Line: {0}, Char: {1}">
+                                <Binding Path="Line" />
+                                <Binding Path="Character" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StatusBarItem>
+                <Separator Grid.Column="1" />
+                <StatusBarItem Grid.Column="2">
+                    <TextBlock Text="{Binding ViewModel.CurrentlyOpenedFile, Mode=OneWay}" />
+                </StatusBarItem>
+                <Separator Grid.Column="3" />
+                <StatusBarItem Grid.Column="4">
+                    <ProgressBar Width="90" Value="{Binding ViewModel.Progress, Mode=OneWay}" />
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </Grid>
+</Page>

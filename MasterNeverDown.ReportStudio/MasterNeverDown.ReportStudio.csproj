@@ -1,0 +1,320 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <OutputType>WinExe</OutputType>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>AakStudio.Shell.UI.Showcase</RootNamespace>
+    <ApplicationIcon>猫头鹰.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AakStudio.Shell.UI" Version="0.1.6-beta-0328" />
+    <PackageReference Include="AakStudio.Shell.UI.Themes.AvalonDock" Version="6.0.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="DotNetProjects.SVGImage" Version="5.2.2" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+    <PackageReference Include="HandyControl" Version="3.5.1" />
+    <PackageReference Include="InfluxDB.Client" Version="4.18.0" />
+    <PackageReference Include="InputSimulator" Version="1.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.33" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Npgsql" Version="8.0.4" />
+    <PackageReference Include="unvell.ReoGridWPF.dll" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="K.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    
+    <None Remove="Fonts\iconfont.ttf" />
+    <None Remove="Fonts\SegMDL2.ttf" />
+    <None Remove="Assets\Fonts\iconfont.ttf" />
+    <None Remove="K.ico" />
+    <Resource Include="Assets\Fonts\iconfont.ttf" />
+    <None Update="Editors\sql.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Editors\Json.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Remove="Settings.settings" />
+    <Page Remove="themes\greedtheme.xaml" />
+    <None Remove="Assets\Images\banner.png" />
+    <None Remove="Assets\Images\Blue.png" />
+    <None Remove="Assets\Images\BlueLarge.png" />
+    <None Remove="Assets\Images\Bold.png" />
+    <None Remove="Assets\Images\Box.png" />
+    <None Remove="Assets\Images\Brown.png" />
+    <None Remove="Assets\Images\BrownLarge.png" />
+    <None Remove="Assets\Images\ChangeCase.png" />
+    <None Remove="Assets\Images\ClearFormatting.png" />
+    <None Remove="Assets\Images\FontColor.png" />
+    <None Remove="Assets\Images\FormatPainter.png" />
+    <None Remove="Assets\Images\GalleryLarge.png" />
+    <None Remove="Assets\Images\Gray.png" />
+    <None Remove="Assets\Images\GrayLarge.png" />
+    <None Remove="Assets\Images\Green.png" />
+    <None Remove="Assets\Images\GreenLarge.png" />
+    <None Remove="Assets\Images\GrowFont.png" />
+    <None Remove="Assets\Images\Italic.png" />
+    <None Remove="Assets\Images\Orange.png" />
+    <None Remove="Assets\Images\OrangeLarge.png" />
+    <None Remove="Assets\Images\PasteFormating.png" />
+    <None Remove="Assets\Images\PasteImage.png" />
+    <None Remove="Assets\Images\PasteSourceFormating.png" />
+    <None Remove="Assets\Images\PasteText.png" />
+    <None Remove="Assets\Images\PasteTextOnly.png" />
+    <None Remove="Assets\Images\Pink.png" />
+    <None Remove="Assets\Images\PinkLarge.png" />
+    <None Remove="Assets\Images\Red.png" />
+    <None Remove="Assets\Images\RedLarge.png" />
+    <None Remove="Assets\Images\SampleImageForScreenTip.png" />
+    <None Remove="Assets\Images\ShrinkFont.png" />
+    <None Remove="Assets\Images\Strikethrough.png" />
+    <None Remove="Assets\Images\Subscript.png" />
+    <None Remove="Assets\Images\Superscript.png" />
+    <None Remove="Assets\Images\Test16.png" />
+    <None Remove="Assets\Images\Test32.png" />
+    <None Remove="Assets\Images\TextEffects.png" />
+    <None Remove="Assets\Images\TextHighlightColor.png" />
+    <None Remove="Assets\Images\Underline.png" />
+    <Page Remove="Assets\Images\VectorIcons.xaml" />
+    <None Remove="Assets\Images\Yellow.png" />
+    <None Remove="Assets\Images\YellowLarge.png" />
+    <None Remove="Assets\Images\TdesignTextformatBold.png" />
+    <None Remove="Assets\Images\AntDesignAlignCenterOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignAlignCenterOutlined.png" />
+    <None Remove="Assets\Images\AntDesignAlignLeftOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignAlignLeftOutlined.png" />
+    <None Remove="Assets\Images\AntDesignAlignRightOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignAlignRightOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderBottomOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderBottomOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderBottomOutlined (1).png" />
+    <None Remove="Assets\Images\AntDesignBorderHorizontalOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderHorizontalOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderInnerOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderInnerOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderLeftOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderLeftOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderlessTableOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderlessTableOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderOuterOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderOuterOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderRightOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderRightOutlined.png" />
+    <None Remove="Assets\Images\AntDesignBorderTopOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignBorderTopOutlined.png" />
+    <None Remove="Assets\Images\AntDesignFolderOpenFilled.png" />
+    <Resource Include="Assets\Images\AntDesignFolderOpenFilled.png" />
+    <None Remove="Assets\Images\AntDesignFolderOpenTwotone.png" />
+    <Resource Include="Assets\Images\AntDesignFolderOpenTwotone.png" />
+    <None Remove="Assets\Images\AntDesignFontColorsOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignFontColorsOutlined.png" />
+    <None Remove="Assets\Images\AntDesignSaveOutlined.png" />
+    <Resource Include="Assets\Images\AntDesignSaveOutlined.png" />
+    <None Remove="Assets\Images\IconoirFillColor.png" />
+    <Resource Include="Assets\Images\IconoirFillColor.png" />
+    <None Remove="Assets\Images\RiFontColor (1).png" />
+    <Resource Include="Assets\Images\RiFontColor (1).png" />
+    <None Remove="Assets\Images\TablerAlignBoxLeftBottom.png" />
+    <Resource Include="Assets\Images\TablerAlignBoxLeftBottom.png" />
+    <None Remove="Assets\Images\TablerAlignBoxLeftMiddle.png" />
+    <Resource Include="Assets\Images\TablerAlignBoxLeftMiddle.png" />
+    <None Remove="Assets\Images\TablerAlignBoxLeftTop.png" />
+    <Resource Include="Assets\Images\TablerAlignBoxLeftTop.png" />
+    <None Remove="Assets\Images\TablerBold.png" />
+    <Resource Include="Assets\Images\TablerBold.png" />
+    <None Remove="Assets\Images\TablerItalic.png" />
+    <Resource Include="Assets\Images\TablerItalic.png" />
+    <None Remove="Assets\Images\TablerUnderline.png" />
+    <Resource Include="Assets\Images\TablerUnderline.png" />
+    <None Remove="Assets\Images\RiPaintFill.png" />
+    <Resource Include="Assets\Images\RiPaintFill.png" />
+    <None Remove="Assets\Images\TablerFreezeRow.svg" />
+    <None Remove="Assets\Images\MingcuteAlignCenterLine.svg" />
+    <Resource Include="Assets\Images\MingcuteAlignCenterLine.svg" />
+    <None Remove="Assets\Images\MingcuteAlignLeftLine.svg" />
+    <Resource Include="Assets\Images\MingcuteAlignLeftLine.svg" />
+    <None Remove="Assets\Images\MingcuteAlignRightLine.svg" />
+    <Resource Include="Assets\Images\MingcuteAlignRightLine.svg" />
+    <None Remove="Assets\Images\MingcuteBorderBottomLine.svg" />
+    <Resource Include="Assets\Images\MingcuteBorderBottomLine.svg" />
+    <None Remove="Assets\Images\MingcuteBorderInnerLine.svg" />
+    <Resource Include="Assets\Images\MingcuteBorderInnerLine.svg" />
+    <None Remove="Assets\Images\MingcuteBorderBottomLine (1).svg" />
+    <Resource Include="Assets\Images\MingcuteBorderBottomLine (1).svg" />
+    <None Remove="Assets\Images\AntDesignBorderBottomOutlined.svg" />
+    <Resource Include="Assets\Images\AntDesignBorderBottomOutlined.svg" />
+    <None Remove="Assets\Images\IconParkOutlineFreezeColumn.svg" />
+    <Resource Include="Assets\Images\IconParkOutlineFreezeColumn.svg" />
+    <None Remove="Assets\Images\TablerFreezeColumn.svg" />
+    <Resource Include="Assets\Images\TablerFreezeColumn.svg" />
+    <None Remove="Assets\Images\TablerFreezeRowColumn.svg" />
+    <Resource Include="Assets\Images\TablerFreezeRowColumn.svg" />
+    <None Remove="Assets\Images\IconParkOutlinePreviewOpen.png" />
+    <Resource Include="Assets\Images\IconParkOutlinePreviewOpen.png" />
+    <None Remove="Assets\Images\FluentTextboxAlignBottom20Regular.png" />
+    <Resource Include="Assets\Images\FluentTextboxAlignBottom20Regular.png" />
+    <None Remove="Assets\Images\FluentTextboxAlignTop24Regular.png" />
+    <Resource Include="Assets\Images\FluentTextboxAlignTop24Regular.png" />
+    <None Remove="Assets\Images\MdiFormatFontSizeDecrease.png" />
+    <Resource Include="Assets\Images\MdiFormatFontSizeDecrease.png" />
+    <None Remove="Assets\Images\MdiFormatFontSizeIncrease.png" />
+    <Resource Include="Assets\Images\MdiFormatFontSizeIncrease.png" />
+    <None Remove="Assets\Images\RiFontColor.png" />
+    <Resource Include="Assets\Images\RiFontColor.png" />
+    <None Remove="Assets\Images\TablerAlignBoxCenterStretch.png" />
+    <Resource Include="Assets\Images\TablerAlignBoxCenterStretch.png" />
+    <None Remove="Assets\Images\TdesignFileAdd1.png" />
+    <Resource Include="Assets\Images\TdesignFileAdd1.png" />
+    <None Remove="Assets\Images\TdesignFolderOpen1.png" />
+    <Resource Include="Assets\Images\TdesignFolderOpen1.png" />
+    <None Remove="Assets\Images\TdesignFormatVerticalAlignCenter.png" />
+    <Resource Include="Assets\Images\TdesignFormatVerticalAlignCenter.png" />
+    <None Remove="Assets\Images\TdesignFormatVerticalAlignLeft.png" />
+    <Resource Include="Assets\Images\TdesignFormatVerticalAlignLeft.png" />
+    <None Remove="Assets\Images\TdesignFormatVerticalAlignRight.png" />
+    <Resource Include="Assets\Images\TdesignFormatVerticalAlignRight.png" />
+    <None Remove="Assets\Images\TdesignHardDiskStorage.png" />
+    <Resource Include="Assets\Images\TdesignHardDiskStorage.png" />
+    <None Remove="Assets\Images\TdesignTextformatItalic.png" />
+    <Resource Include="Assets\Images\TdesignTextformatItalic.png" />
+    <None Remove="Assets\Images\TdesignTextformatUnderline.png" />
+    <Resource Include="Assets\Images\TdesignTextformatUnderline.png" />
+    <None Remove="Assets\Images\RiUnderline.png" />
+    <Resource Include="Assets\Images\RiUnderline.png" />
+    <None Remove="Assets\Images\FluentFontDecrease24Filled.png" />
+    <Resource Include="Assets\Images\FluentFontDecrease24Filled.png" />
+    <None Remove="Assets\Images\FluentFontIncrease24Filled.png" />
+    <Resource Include="Assets\Images\FluentFontIncrease24Filled.png" />
+    <None Remove="Assets\Images\TablerAlignBoxCenterTop.png" />
+    <Resource Include="Assets\Images\TablerAlignBoxCenterTop.png" />
+    <None Remove="Assets\Images\TablerAlignBoxCenterMiddle.png" />
+    <Resource Include="Assets\Images\TablerAlignBoxCenterMiddle.png" />
+    <None Remove="Assets\Images\FlowbiteMergeCellsOutline.png" />
+    <Resource Include="Assets\Images\FlowbiteMergeCellsOutline.png" />
+    <None Remove="Assets\Images\FlowbiteSplitCellsOutline.png" />
+    <Resource Include="Assets\Images\FlowbiteSplitCellsOutline.png" />
+    <None Remove="Assets\Images\MdiTableSplitCell.png" />
+    <Resource Include="Assets\Images\MdiTableSplitCell.png" />
+    <None Remove="Assets\Images\MdiTableMergeCells.png" />
+    <Resource Include="Assets\Images\MdiTableMergeCells.png" />
+    <None Remove="Assets\Images\MdiBorderNoneVariant.png" />
+    <Resource Include="Assets\Images\MdiBorderNoneVariant.png" />
+    <None Remove="Assets\Images\MdiBorderAllVariant.png" />
+    <Resource Include="Assets\Images\MdiBorderAllVariant.png" />
+    <None Remove="Assets\Images\MdiBorderBottomVariant.png" />
+    <Resource Include="Assets\Images\MdiBorderBottomVariant.png" />
+    <None Remove="Assets\Images\MdiBorderLeftVariant.png" />
+    <Resource Include="Assets\Images\MdiBorderLeftVariant.png" />
+    <None Remove="Assets\Images\MdiBorderRightVariant.png" />
+    <Resource Include="Assets\Images\MdiBorderRightVariant.png" />
+    <None Remove="Assets\Images\MdiBorderTopVariant.png" />
+    <Resource Include="Assets\Images\MdiBorderTopVariant.png" />
+    <None Remove="Assets\Images\MdiFileImageOutline.png" />
+    <Resource Include="Assets\Images\MdiFileImageOutline.png" />
+    <None Remove="Assets\Images\MdiUndoVariant.png" />
+    <Resource Include="Assets\Images\MdiUndoVariant.png" />
+    <None Remove="Assets\Images\MdiRedoVariant.png" />
+    <Resource Include="Assets\Images\MdiRedoVariant.png" />
+    <None Remove="Assets\Images\MdiPaletteOutline.png" />
+    <Resource Include="Assets\Images\MdiPaletteOutline.png" />
+    <None Remove="Assets\Images\SolarAltArrowUpLinear.png" />
+    <Resource Include="Assets\Images\SolarAltArrowUpLinear.png" />
+    <None Remove="Assets\Images\SolarAltArrowDownLinear.png" />
+    <Resource Include="Assets\Images\SolarAltArrowDownLinear.png" />
+    <Page Remove="Resources\Resources.en-US.xaml" />
+    <Resource Include="Resources\Resources.en-US.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Page Remove="Resources\Resources.zh-Hans.xaml" />
+    <Resource Include="Resources\Resources.zh-Hans.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+   
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MasterNeverDown.ReportStudio.Model\MasterNeverDown.ReportStudio.Model.csproj" />
+    <ProjectReference Include="..\MasterNeverDown.ReportStudio.ToolBar\MasterNeverDown.ReportStudio.ToolBar.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ControlViews\imgs\保存.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\TemplateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ControlViews\SqlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ConnectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DataSourceEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ParameterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ParameterEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PreviewTemplateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Behaviors\DocumentTextBindingBehavior.cs" />
+    <Compile Remove="Settings.Designer.cs" />
+    <Compile Remove="Profiles\MappingProfile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Profiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\TablerFreezeRow.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\TdesignTextformatBold.png" />
+  </ItemGroup>
+
+</Project>
