@@ -247,6 +247,9 @@
     <Resource Include="Resources\Resources.zh-Hans.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <None Update="app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
    
   </ItemGroup>
 

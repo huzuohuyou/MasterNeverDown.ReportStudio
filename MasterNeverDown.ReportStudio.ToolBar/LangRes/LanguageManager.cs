@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Globalization;
-using System.Resources;
 using MasterNeverDown.ReportStudio.ToolBar.LangRes;
 
 namespace MasterNeverDown.ReportStudio.ToolBar.Resources

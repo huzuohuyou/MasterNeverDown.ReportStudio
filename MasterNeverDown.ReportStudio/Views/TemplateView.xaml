@@ -11,7 +11,7 @@
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:viewmodels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
     xmlns:attachs="clr-namespace:AakStudio.Shell.UI.Showcase.Attachs"
-    xmlns:resources="clr-namespace:MasterNeverDown.ReportStudio.ToolBar.Resources;assembly=MasterNeverDown.ReportStudio.ToolBar"
+    xmlns:lang="clr-namespace:MasterNeverDown.ReportStudio.ToolBar.LangRes;assembly=MasterNeverDown.ReportStudio.ToolBar"
     d:DataContext="{d:DesignInstance Type=viewmodels:TemplateViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -72,7 +72,7 @@
         </TreeView>
         <StackPanel Grid.Row="1">
             <Button  Command="{Binding CreateCommand, Mode=OneWay}"  
-                     Content="{Binding [Create], Source={x:Static resources:LanguageManager.Instance}}" Height="20"
+                     Content="{Binding  Source={x:Static lang:LangResource.Create}}" Height="20"
 
              
                      

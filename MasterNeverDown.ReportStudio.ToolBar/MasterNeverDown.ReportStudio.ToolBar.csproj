@@ -15,6 +15,8 @@
     <Compile Remove="ConfiguratorModule.cs" />
     <Compile Remove="Views\**" />
     <Compile Remove="ViewModels\**" />
+    <Compile Remove="LangRes\LanguageManager.cs" />
+    <Compile Remove="LangRes\LangResourceHelper.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,18 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="LangRes\LangResource.it.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LangRes\LangResource.ja-JP.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Update="LangRes\LangResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LangResource.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LangRes\LangResource.ru-RU.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Update="LangRes\LangResource.zh-CN.resx">

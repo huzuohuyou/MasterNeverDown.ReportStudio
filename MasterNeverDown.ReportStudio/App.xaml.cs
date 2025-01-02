@@ -14,8 +14,7 @@ public sealed partial class App : Application
         var serviceCollection = new ServiceCollection();
         ConfigureServices(serviceCollection);
         ServiceProvider = serviceCollection.BuildServiceProvider();
-        // LanguageManager.CurrentLanguage = new ResourceDictionary { Source = new Uri("Resources\\Resources.en-US.xaml", UriKind.Relative) };
-        LangResource.Culture=new CultureInfo("en-US");
+        LangResource.Culture=new CultureInfo( ConfigHelper.GetSelectedLanguage());
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
         base.OnStartup(e);
         GlobalExceptionHandler.Register();

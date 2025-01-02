@@ -1,30 +1,41 @@
 ﻿using AvalonDock;
 using AvalonDock.Layout;
 using CommunityToolkit.Mvvm.Input;
-using MasterNeverDown.ReportStudio.ToolBar.Resources;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels;
 
 public partial class WorkSpaceViewModel : ViewModelBase
 {
-    
     public static WorkSpaceViewModel Default { get; } = new();
     private CultureInfo _selectedLanguage;
 
+
     public ObservableCollection<CultureInfo> Languages { get; }
+
     public CultureInfo SelectedLanguage
     {
-        get => _selectedLanguage;
+        get
+        {
+            string selectedLanguage = ConfigHelper.GetSelectedLanguage();
+            _selectedLanguage = new CultureInfo(selectedLanguage);
+            return _selectedLanguage ;
+        }
         set
         {
-            if (_selectedLanguage != value)
-            {
-                _selectedLanguage = value;
-                
-                LanguageManager.Instance.ChangeLanguage(_selectedLanguage);
-                OnPropertyChanged(ref _selectedLanguage,value, nameof(SelectedLanguage));
-            }
+            if (Equals(_selectedLanguage, value)) return;
+            _selectedLanguage = value;
+            
+            ConfigHelper.UpdateAppConfig("SelectedLanguage", _selectedLanguage.Name);
+            OnPropertyChanged(ref _selectedLanguage, value, nameof(SelectedLanguage));
+            RestartApplication();
         }
+    }
+
+
+    private void RestartApplication()
+    {
+        System.Diagnostics.Process.Start(System.Diagnostics.Process.GetCurrentProcess().MainModule!.FileName!);
+        Application.Current.Shutdown();
     }
 
     public ObservableCollection<AakToolWell> Anchorables
@@ -66,21 +77,18 @@ public partial class WorkSpaceViewModel : ViewModelBase
         Parameter = new ParameterViewModel(this);
         currentTheme = AakXamlUIResource.Instance.Theme;
 
-        anchorables = new ObservableCollection<AakToolWell> { StyleSelector, DataSource, Template, Connection, Parameter };
+        anchorables = new ObservableCollection<AakToolWell>
+            { StyleSelector, DataSource, Template, Connection, Parameter };
         documentViews = new ObservableCollection<AakDocumentWell?>();
         Languages = new ObservableCollection<CultureInfo>
         {
-            new CultureInfo("en-US"),
-            new CultureInfo("zh-hans")
+            new("en-US"),
+            new("zh-hans")
         };
-        _selectedLanguage = Languages[0];
-        LangResource.Culture= _selectedLanguage;
+        LangResource.Culture = SelectedLanguage;
     }
 
-    private void ChangeLanguage(CultureInfo culture)
-    {
-        LanguageManager.Instance.ChangeLanguage(culture);
-    }
+   
 
     public StyleSelectorViewModel StyleSelector { get; }
     public ParameterViewModel Parameter { get; }
@@ -115,6 +123,7 @@ public partial class WorkSpaceViewModel : ViewModelBase
             item = view;
             DocumentViews.Add(item);
         }
+
         ActiveDocument = item;
     }
 
@@ -151,15 +160,16 @@ public partial class WorkSpaceViewModel : ViewModelBase
         {
             return;
         }
+
         gridControl.Load(path, FileFormat._Auto, Encoding.Default);
     }
-       
+
     [RelayCommand]
     private void OnLoadedDockingManager(object sender)
     {
         _reportDockingManager = (DockingManager)sender;
     }
-        
+
     public ReoGridControl AddNewLayoutDocument(string title, string contentId)
     {
         ActiveDocument:
@@ -175,14 +185,14 @@ public partial class WorkSpaceViewModel : ViewModelBase
         if (documentPane != null)
         {
             var content = new ReportDesigner();
-            var vm=new TemplateEditorViewModel
+            var vm = new TemplateEditorViewModel
             {
                 TemplateName = contentId
             };
-            using var dataSourceContext =new DataSourceContext();
+            using var dataSourceContext = new DataSourceContext();
             var currentTemplate = dataSourceContext.Templates.FirstOrDefault(d => d.Name.Equals(TemplateName));
             vm.SelectedDataSource = currentTemplate?.DataSource!;
-                
+
             content.DataContext = vm;
             var newDocument = new LayoutDocument
             {
@@ -198,10 +208,9 @@ public partial class WorkSpaceViewModel : ViewModelBase
             LoadFile(pathJoin, content.Grid);
 
             grid.CurrentWorksheet.ColumnCount = currentTemplate?.ColumnCount ?? 100;
-            grid.CurrentWorksheet.RowCount =currentTemplate?.RowCount ?? 200; 
+            grid.CurrentWorksheet.RowCount = currentTemplate?.RowCount ?? 200;
         }
 
         goto ActiveDocument;
-            
     }
 }
