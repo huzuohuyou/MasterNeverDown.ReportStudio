@@ -23,5 +23,6 @@ public class Connection
 
     public string CreateDate { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+    public string PostgreSQLConnectionString => $"postgresql://{Host}:{Port}/{Database}?user={User}&password={Password}";
     
 }

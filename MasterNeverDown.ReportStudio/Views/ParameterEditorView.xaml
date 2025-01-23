@@ -106,7 +106,7 @@
                     SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"
                     Margin="0" 
                     TabStripPlacement="Bottom">
-            <TabItem Header="DataBase">
+            <TabItem Header="Database">
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -155,38 +155,38 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Json">
-                <Border Width="460" Height="230">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" />
-                </Border>
-            </TabItem>
-            <TabItem Header="Csv">
-                <Border Width="460" Height="230">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" />
-                </Border>
-            </TabItem>
-            <TabItem Header="WebApi">
-                <Border Width="460" Height="230">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" />
-                </Border>
-            </TabItem>
-            <TabItem Header="Python">
-                <Border Width="460" Height="230">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" />
-                </Border>
-            </TabItem>
+            <!-- <TabItem Header="Json"> -->
+            <!--     <Border Width="460" Height="230"> -->
+            <!--         <TextBlock -->
+            <!--             HorizontalAlignment="Center" -->
+            <!--             VerticalAlignment="Center" -->
+            <!--             Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" /> -->
+            <!--     </Border> -->
+            <!-- </TabItem> -->
+            <!-- <TabItem Header="Csv"> -->
+            <!--     <Border Width="460" Height="230"> -->
+            <!--         <TextBlock -->
+            <!--             HorizontalAlignment="Center" -->
+            <!--             VerticalAlignment="Center" -->
+            <!--             Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" /> -->
+            <!--     </Border> -->
+            <!-- </TabItem> -->
+            <!-- <TabItem Header="WebApi"> -->
+            <!--     <Border Width="460" Height="230"> -->
+            <!--         <TextBlock -->
+            <!--             HorizontalAlignment="Center" -->
+            <!--             VerticalAlignment="Center" -->
+            <!--             Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" /> -->
+            <!--     </Border> -->
+            <!-- </TabItem> -->
+            <!-- <TabItem Header="Python"> -->
+            <!--     <Border Width="460" Height="230"> -->
+            <!--         <TextBlock -->
+            <!--             HorizontalAlignment="Center" -->
+            <!--             VerticalAlignment="Center" -->
+            <!--             Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" /> -->
+            <!--     </Border> -->
+            <!-- </TabItem> -->
         </TabControl>
     </Grid>
 </UserControl>

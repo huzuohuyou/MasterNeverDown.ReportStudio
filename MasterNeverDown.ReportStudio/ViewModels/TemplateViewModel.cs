@@ -1,6 +1,4 @@
-﻿
-
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels;
 

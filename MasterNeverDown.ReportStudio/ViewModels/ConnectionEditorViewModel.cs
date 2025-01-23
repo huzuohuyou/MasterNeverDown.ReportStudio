@@ -4,7 +4,6 @@ namespace AakStudio.Shell.UI.Showcase.ViewModels;
 
 public partial class ConnectionEditorViewModel : AakToolWell
 {
-
     public ConnectionViewModel Parent { get; set; } = null!;
     [ObservableProperty] private Connection _connection = new();
     [ObservableProperty] private bool _isSaveEnabled;
@@ -36,6 +35,16 @@ public partial class ConnectionEditorViewModel : AakToolWell
 
     [RelayCommand]
     public void OnSave(object sender) => SaveConnection();
+
+    [RelayCommand]
+    private void OnTest(object sender) => TestConnection();
+
+    private void TestConnection()
+    {
+        using IDbConnection db = new NpgsqlConnection(Connection.PostgreSQLConnectionString);
+        db.Open();
+        MessageBox.Show("Connection successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
 
     protected override void DeleteEntityByName()
     {

@@ -123,11 +123,12 @@
        
         <StackPanel Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0" Orientation="Horizontal"
                     HorizontalAlignment="Right" VerticalAlignment="Center">
-            <TextBlock Margin="0,15,0,0" HorizontalAlignment="Left">
-                <Hyperlink NavigateUri="https://github.com">
-                    Test Connection
-                </Hyperlink>
-            </TextBlock>
+           
+            <Button IsDefault="True"
+                    Margin="15 10" Height="22" Width="80"
+                    Command="{Binding TestCommand}" >
+                Test Connection
+            </Button>
             <Button IsDefault="True"
                     Margin="15 10" Height="22" Width="80"
                     Command="{Binding SaveCommand}"

@@ -1,5 +1,7 @@
-
-
+using System.Threading;
+using System.Threading.Tasks;
+using Polly;
+using Polly.Timeout;
 using CheckBox = System.Windows.Controls.CheckBox;
 using RadioButton = System.Windows.Controls.RadioButton;
 using TextBox = System.Windows.Controls.TextBox;
@@ -42,10 +44,15 @@ public class ParameterBuildFactory
                 var connectionString = GetConnectionString(conn.Host, conn.User, conn.Password,
                     conn.Database,
                     conn.Port.ToString());
-                using IDbConnection db = new NpgsqlConnection(connectionString);
-                var result = db.Query(p.Script).ToList();
-                comboBox.ItemsSource = result;
 
+
+                Policy.Timeout(3, onTimeout: (context, timespan, task) =>
+                {
+                    using IDbConnection db = new NpgsqlConnection(connectionString);
+                    var result = db.Query(p.Script).ToList();
+                    comboBox.ItemsSource = result;
+                });
+              
                 return comboBox;
             }
             case InputType.CheckBox:
@@ -86,7 +93,9 @@ public class ParameterBuildFactory
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(p.InputType), p.InputType, null);
-        } return new TextBox();
+        }
+
+        return new TextBox();
     }
 
     private string GetConnectionString(string servername, string uid, string pwd, string db, string port)
@@ -102,6 +111,7 @@ public class ParameterBuildFactory
         {
             years[i] = currentYear - i;
         }
+
         return years;
     }
 

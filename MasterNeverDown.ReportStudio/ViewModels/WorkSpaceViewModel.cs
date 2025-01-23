@@ -70,7 +70,7 @@ public partial class WorkSpaceViewModel : ViewModelBase
 
     public WorkSpaceViewModel()
     {
-        StyleSelector = new StyleSelectorViewModel(this);
+        // StyleSelector = new StyleSelectorViewModel(this);
         Connection = new ConnectionViewModel(this);
         DataSource = new DataSourceViewModel(this);
         Template = new TemplateViewModel(this);
@@ -78,7 +78,7 @@ public partial class WorkSpaceViewModel : ViewModelBase
         currentTheme = AakXamlUIResource.Instance.Theme;
 
         anchorables = new ObservableCollection<AakToolWell>
-            { StyleSelector, DataSource, Template, Connection, Parameter };
+            { DataSource, Template, Connection, Parameter };
         documentViews = new ObservableCollection<AakDocumentWell?>();
         Languages = new ObservableCollection<CultureInfo>
         {
