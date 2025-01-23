@@ -15,7 +15,8 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:TemplateViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}" ItemsSource="{Binding Items}">
+        <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}"
+                                  ItemsSource="{Binding Items}">
             <TextBlock Text="{Binding DisplayName}" />
             <HierarchicalDataTemplate.ItemTemplate>
                 <DataTemplate DataType="{x:Type shell:AakDocumentWell}">
@@ -25,7 +26,7 @@
         </HierarchicalDataTemplate>
     </UserControl.Resources>
     <Grid>
-      
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="22" />
@@ -36,13 +37,11 @@
             ItemsSource="{Binding Collections}"
             dd:DragDrop.DropHandler="{Binding ViewModel}"
             dd:DragDrop.IsDragSource="True"
-            dd:DragDrop.IsDropTarget="True"
-            >
+            dd:DragDrop.IsDropTarget="True">
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="新建" />
-                    <MenuItem Header="删除" Command="{Binding DeleteCommand}" 
-                    />
+                    <MenuItem Header="删除" Command="{Binding DeleteCommand}" />
                     <MenuItem Header="编辑" />
                     <MenuItem Header="测试" />
                 </ContextMenu>
@@ -50,7 +49,7 @@
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectedItemChanged">
                     <b:InvokeCommandAction Command="{Binding SelectItemChangedCommand}"
-                                           CommandParameter="{Binding ElementName=tvRequire,Path=SelectedItem}"     />
+                                           CommandParameter="{Binding ElementName=tvRequire,Path=SelectedItem}" />
                 </b:EventTrigger>
             </b:Interaction.Triggers>
             <TreeView.ItemContainerStyle>
@@ -61,22 +60,20 @@
                         <Setter.Value>
                             <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                                <Setter Property="attachs:MouseLeftDoubleClickAttach.Command" Value="{Binding ActiveCommand}"  />
-                                  </Style>
+                                <Setter Property="attachs:MouseLeftDoubleClickAttach.Command"
+                                        Value="{Binding ActiveCommand}" />
+                            </Style>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="attachs:MouseLeftDoubleClickAttach.Command" Value="{Binding ActiveCommand}"  />
+                    <Setter Property="attachs:MouseLeftDoubleClickAttach.Command" Value="{Binding ActiveCommand}" />
 
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
         <StackPanel Grid.Row="1">
-            <Button  Command="{Binding CreateCommand, Mode=OneWay}"  
-                     Content="{Binding  Source={x:Static lang:LangResource.Create}}" Height="20"
-
-             
-                     
-                     d:Content="新增" />
+            <Button Command="{Binding CreateCommand, Mode=OneWay}"
+                    Content="{Binding  Source={x:Static lang:LangResource.Create}}" Height="20"
+                    d:Content="新增" />
 
         </StackPanel>
     </Grid>

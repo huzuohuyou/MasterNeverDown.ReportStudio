@@ -1,6 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using Npgsql.Replication;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels;
 

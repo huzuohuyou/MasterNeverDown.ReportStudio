@@ -43,7 +43,14 @@ public partial class ConnectionEditorViewModel : AakToolWell
     {
         using IDbConnection db = new NpgsqlConnection(Connection.PostgreSQLConnectionString);
         db.Open();
-        MessageBox.Show("Connection successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        if (db.State.Equals(ConnectionState.Open))
+        {
+            MessageBox.Show("Connection successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            MessageBox.Show("Connection fail", "Fail", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     protected override void DeleteEntityByName()

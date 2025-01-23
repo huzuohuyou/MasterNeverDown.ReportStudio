@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace AakStudio.Shell.UI.Showcase.Shell;
+﻿namespace AakStudio.Shell.UI.Showcase.Shell;
 
 public abstract class AakViewElement : ObservableObject
 {

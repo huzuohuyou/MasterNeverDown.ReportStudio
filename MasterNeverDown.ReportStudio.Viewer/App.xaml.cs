@@ -59,13 +59,7 @@ public partial class App
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<ReportViewerPage>();
-            
-            // services.AddSingleton<EditorControlViewModel>();
-            // services.AddSingleton<EditorControl>();
-            // ConfiguratorModule.AddService(services);
-            // var module = new ModuleService(services);
-            // // module.AddReferenceAssembly();
-            // module.AddService();
+  
         }).Build();
 
     /// <summary>

@@ -1,5 +1,4 @@
 using System.Configuration;
-using System.Xml;
 
 public static class ConfigHelper
 {

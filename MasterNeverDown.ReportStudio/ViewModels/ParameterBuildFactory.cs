@@ -1,7 +1,4 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Polly;
-using Polly.Timeout;
 using CheckBox = System.Windows.Controls.CheckBox;
 using RadioButton = System.Windows.Controls.RadioButton;
 using TextBox = System.Windows.Controls.TextBox;
