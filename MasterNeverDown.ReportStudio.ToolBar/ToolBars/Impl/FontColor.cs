@@ -6,7 +6,7 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using MasterNeverDown.ReportStudio.ToolBar.LangRes;
+using MasterNeverDown.ReportStudio.Model.LangRes;
 using unvell.ReoGrid;
 
 namespace MasterNeverDown.ReportStudio.ToolBar.ToolBars.Impl;

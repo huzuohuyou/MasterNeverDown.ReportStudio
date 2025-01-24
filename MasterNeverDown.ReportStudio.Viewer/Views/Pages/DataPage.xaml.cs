@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using DataViewModel = MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages.DataViewModel;
 
 namespace MasterNeverDown.ReportStudio.Viewer.Views.Pages;
 

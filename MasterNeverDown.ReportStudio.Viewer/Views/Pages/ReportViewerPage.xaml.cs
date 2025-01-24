@@ -1,17 +1,16 @@
-﻿using CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
+using DataViewModel = MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages.ReportViewerViewModel;
 
 namespace MasterNeverDown.ReportStudio.Viewer.Views.Pages;
 
 public partial class ReportViewerPage : INavigableView<DataViewModel>
 {
-    public DataViewModel ViewModel { get; }
+    public ReportViewerViewModel ViewModel { get; }
 
-    public ReportViewerPage(DataViewModel viewModel)
+    public ReportViewerPage(ReportViewerViewModel viewModel)
     {
         ViewModel = viewModel;
-        DataContext = this;
-
+        DataContext = ViewModel;
         InitializeComponent();
     }
 }

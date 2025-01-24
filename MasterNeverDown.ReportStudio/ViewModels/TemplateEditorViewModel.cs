@@ -1,6 +1,5 @@
 using HandyControl.Controls;
-using LangResource = MasterNeverDown.ReportStudio.ToolBar.LangRes.LangResource;
-
+using MasterNeverDown.ReportStudio.Model.LangRes;
 using RelayCommand = CommunityToolkit.Mvvm.Input.RelayCommandAttribute;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels;

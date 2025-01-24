@@ -10,7 +10,7 @@ global using System.Windows.Controls;
 global using System.Windows.Forms;
 global using CommunityToolkit.ReportEditor.Model.Models;
 global using Dapper;
-global using MasterNeverDown.ReportStudio.ToolBar.LangRes;
+global using MasterNeverDown.ReportStudio.Model.LangRes;
 global using Npgsql;
 global using unvell.ReoGrid;
 global using unvell.ReoGrid.IO;

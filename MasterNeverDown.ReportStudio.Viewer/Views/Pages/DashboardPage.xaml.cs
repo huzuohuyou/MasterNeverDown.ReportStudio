@@ -1,7 +1,6 @@
-﻿using CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 
-namespace CommunityToolkit.ReportEditor.Shell.Views.Pages;
+namespace MasterNeverDown.ReportStudio.Viewer.Views.Pages;
 
 public partial class DashboardPage : INavigableView<DashboardViewModel>
 {

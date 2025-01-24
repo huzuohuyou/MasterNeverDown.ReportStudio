@@ -8,14 +8,20 @@
     Title="DataPage"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:reoGrid="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+    xmlns:converters="clr-namespace:MasterNeverDown.ReportStudio.Viewer.Converters"
+    xmlns:pages="clr-namespace:MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages"
     d:DesignHeight="450"
     d:DesignWidth="800"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
-    mc:Ignorable="d">
+    d:DataContext="{d:DesignInstance pages:ReportViewerViewModel,
+                                     IsDesignTimeCreatable=False}"
+    mc:Ignorable="d" >
+   
     <Page.Resources>
+        <converters:ArrayConverter x:Key="ArrayConverter" />
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Foreground" Value="{DynamicResource CommonControlsTextBoxText}" />
@@ -83,18 +89,26 @@
     <!-- <Window.DataContext> -->
     <!--     <viewModels:PreviewTemplateViewModel  /> -->
     <!-- </Window.DataContext> -->
-    <b:Interaction.Triggers>
-        <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
-                                   CommandParameter="{Binding ElementName=ReoGridControl}" />
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
-    <ScrollViewer
-        MinWidth="1150"
-        HorizontalAlignment="Left"
-        HorizontalScrollBarVisibility="Auto">
-        <Border Background="{DynamicResource SystemColorsControl}">
-            <Grid Margin="10">
+   <b:Interaction.Triggers>
+    <b:EventTrigger EventName="Loaded">
+        <b:InvokeCommandAction Command="{Binding LoadedWindowCommand}">
+            <b:InvokeCommandAction.CommandParameter>
+                <MultiBinding Converter="{StaticResource ArrayConverter}">
+                    <Binding ElementName="ReoGridControl" />
+                    <Binding ElementName="ParameterContainer" />
+                </MultiBinding>
+            </b:InvokeCommandAction.CommandParameter>
+        </b:InvokeCommandAction>
+    </b:EventTrigger>
+</b:Interaction.Triggers>
+    <Grid>
+        <ScrollViewer
+            HorizontalAlignment="Stretch"
+            Width="Auto"
+            VerticalAlignment="Stretch"
+            HorizontalScrollBarVisibility="Auto">
+            <Border Background="{DynamicResource SystemColorsControl}">
+            <Grid Margin="0">
                 <Grid.Resources>
                     <!-- Default settings for controls -->
                     <Style TargetType="{x:Type Label}">
@@ -122,10 +136,10 @@
 
                 </Grid.RowDefinitions>
                 <StackPanel Margin="0 0 0 5"
-
+                            DataContext="{Binding ReportViewerViewModel}"
                             Name="ParameterContainer"
                             HorizontalAlignment="Left"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal" >
                     <b:Interaction.Triggers>
                         <b:EventTrigger EventName="Loaded">
                             <b:InvokeCommandAction Command="{Binding LoadedParameterContainerCommand}"
@@ -161,6 +175,7 @@
                 <reoGrid:ReoGridControl Grid.ColumnSpan="2"
                                         Grid.Column="0"
                                         Grid.Row="1"
+                                        Width="auto"
                                         SheetTabVisible="False"
                                         SheetTabNewButtonVisible="False"
                                         Readonly="False"
@@ -169,5 +184,7 @@
             </Grid>
         </Border>
     </ScrollViewer>
+    </Grid>
+    
 
 </Page>

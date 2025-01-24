@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MasterNeverDown.ReportStudio.ToolBar.LangRes {
+namespace MasterNeverDown.ReportStudio.Model.LangRes {
     using System;
     
     
@@ -38,7 +38,7 @@ namespace MasterNeverDown.ReportStudio.ToolBar.LangRes {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MasterNeverDown.ReportStudio.ToolBar.LangRes.LangResource", typeof(LangResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MasterNeverDown.ReportStudio.Model.LangRes.LangResource", typeof(LangResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

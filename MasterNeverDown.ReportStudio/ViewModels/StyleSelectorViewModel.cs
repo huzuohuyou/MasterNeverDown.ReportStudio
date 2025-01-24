@@ -1,4 +1,6 @@
-﻿namespace AakStudio.Shell.UI.Showcase.ViewModels;
+﻿using MasterNeverDown.ReportStudio.Model.LangRes;
+
+namespace AakStudio.Shell.UI.Showcase.ViewModels;
 
 public sealed class StyleSelectorViewModel : AakToolWell
 {

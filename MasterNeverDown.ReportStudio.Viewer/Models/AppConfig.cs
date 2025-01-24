@@ -1,4 +1,4 @@
-﻿namespace CommunityToolkit.ReportEditor.Shell.Models;
+﻿namespace MasterNeverDown.ReportStudio.Viewer.Models;
 
 public class AppConfig
 {

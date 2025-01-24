@@ -1,6 +1,7 @@
 ﻿using AvalonDock;
 using AvalonDock.Layout;
 using CommunityToolkit.Mvvm.Input;
+using MasterNeverDown.ReportStudio.Model.LangRes;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels;
 

@@ -1,20 +1,13 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows.Threading;
-using CommunityToolkit.ReportEditor.Model.Models;
-using CommunityToolkit.ReportEditor.Shell.Services;
-using CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
-using CommunityToolkit.ReportEditor.Shell.ViewModels.Windows;
-using CommunityToolkit.ReportEditor.Shell.Views.Pages;
-using CommunityToolkit.ReportEditor.Shell.Views.Windows;
+using MasterNeverDown.ReportStudio.Viewer.Services;
+using MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
+using MasterNeverDown.ReportStudio.Viewer.ViewModels.Windows;
 using MasterNeverDown.ReportStudio.Viewer.Views.Pages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-using Wpf.Ui;
-
-namespace CommunityToolkit.ReportEditor.Shell;
+namespace MasterNeverDown.ReportStudio.Viewer;
 
 /// <summary>
 /// Interaction logic for App.xaml
@@ -58,20 +51,11 @@ public partial class App
             services.AddSingleton<DataViewModel>();
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
+            
+            services.AddSingleton<ReportViewerViewModel>();
             services.AddSingleton<ReportViewerPage>();
   
         }).Build();
-
-    /// <summary>
-    /// Gets registered service.
-    /// </summary>
-    /// <typeparam name="T">Type of the service to get.</typeparam>
-    /// <returns>Instance of the service or <see langword="null"/>.</returns>
-    public static T GetService<T>()
-        where T : class
-    {
-        return _host.Services.GetService(typeof(T)) as T;
-    }
 
     /// <summary>
     /// Occurs when the application is loading.

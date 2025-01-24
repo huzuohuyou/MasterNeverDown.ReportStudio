@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using Wpf.Ui.Appearance;
 
-namespace CommunityToolkit.ReportEditor.Shell.Helpers;
+namespace MasterNeverDown.ReportStudio.Viewer.Helpers;
 
 internal class EnumToBooleanConverter : IValueConverter
 {

@@ -1,9 +1,7 @@
-﻿using CommunityToolkit.ReportEditor.Shell.ViewModels.Windows;
-using Wpf.Ui;
+﻿using MasterNeverDown.ReportStudio.Viewer.ViewModels.Windows;
 using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
-namespace CommunityToolkit.ReportEditor.Shell.Views.Windows;
+namespace MasterNeverDown.ReportStudio.Viewer.Views.Windows;
 
 public partial class MainWindow : INavigationWindow
 {
@@ -50,7 +48,7 @@ public partial class MainWindow : INavigationWindow
         base.OnClosed(e);
 
         // Make sure that closing this window will begin the process of closing the application.
-        Application.Current.Shutdown();
+        System.Windows.Application.Current.Shutdown();
     }
 
     INavigationView INavigationWindow.GetNavigation()
@@ -96,7 +94,7 @@ public partial class MainWindow : INavigationWindow
 
     private void OnNavigationSelectionChanged(object sender, RoutedEventArgs e)
     {
-        if (sender is not Wpf.Ui.Controls.NavigationView navigationView)
+        if (sender is not NavigationView navigationView)
         {
             return;
         }

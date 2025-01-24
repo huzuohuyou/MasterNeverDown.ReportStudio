@@ -2,3 +2,17 @@
 global using CommunityToolkit.Mvvm.Input;
 global using System;
 global using System.Windows;
+global using System.IO;
+global using System.Text;
+global using System.Text.RegularExpressions;
+global using System.Windows.Controls;
+global using System.Windows.Forms;
+global using CommunityToolkit.ReportEditor.Model.Models;
+global using MasterNeverDown.ReportStudio.Model.LangRes;
+global using unvell.ReoGrid;
+global using unvell.ReoGrid.IO;
+global using Wpf.Ui.Controls;
+global using MasterNeverDown.ReportStudio.Viewer.Views.Windows;
+global using Microsoft.Extensions.Hosting;
+global using Wpf.Ui;
+global using Application = System.Windows.Application;

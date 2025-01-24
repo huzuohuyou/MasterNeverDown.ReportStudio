@@ -1,5 +1,6 @@
 using AakStudio.Shell.UI.Showcase.Models;
 using CommunityToolkit.Mvvm.Input;
+using MasterNeverDown.ReportStudio.Model.LangRes;
 
 namespace AakStudio.Shell.UI.Showcase.ViewModels;
 

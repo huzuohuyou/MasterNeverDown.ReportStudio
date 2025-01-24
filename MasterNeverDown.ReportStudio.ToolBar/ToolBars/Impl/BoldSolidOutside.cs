@@ -1,6 +1,5 @@
-using System.Drawing;
 using System.Windows.Forms;
-using MasterNeverDown.ReportStudio.ToolBar.LangRes;
+using MasterNeverDown.ReportStudio.Model.LangRes;
 using unvell.ReoGrid;
 
 namespace MasterNeverDown.ReportStudio.ToolBar.ToolBars.Impl;

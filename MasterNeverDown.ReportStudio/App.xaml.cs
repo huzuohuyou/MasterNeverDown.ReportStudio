@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MasterNeverDown.ReportStudio.Model.LangRes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AakStudio.Shell.UI.Showcase;
 

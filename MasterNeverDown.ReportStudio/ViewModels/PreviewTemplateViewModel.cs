@@ -1,6 +1,7 @@
 
 
 using CommunityToolkit.Mvvm.Input;
+using MasterNeverDown.ReportStudio.Model.LangRes;
 using CheckBox = System.Windows.Controls.CheckBox;
 using TextBox = System.Windows.Controls.TextBox;
 

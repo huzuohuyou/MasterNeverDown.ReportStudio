@@ -13,7 +13,8 @@ public class DataSourceContext: DbContext
     public DbSet<Connection> Connections { get; set; }
 
     private string DbPath { get; }
-    
+    public static DataSourceContext Factory { get; } = new();
+
     public DataSourceContext()
     {
         DbPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KnockKnock.db");

@@ -11,8 +11,7 @@
              xmlns:shell="clr-namespace:AakStudio.Shell.UI.Showcase.Shell"
              xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:attachs="clr-namespace:AakStudio.Shell.UI.Showcase.Attachs"
-             xmlns:lang="clr-namespace:MasterNeverDown.ReportStudio.ToolBar.LangRes;assembly=MasterNeverDown.ReportStudio.ToolBar"
-             d:DataContext="{d:DesignInstance Type=viewModels:DataSourceViewModel}"
+             xmlns:langRes="clr-namespace:MasterNeverDown.ReportStudio.Model.LangRes;assembly=MasterNeverDown.ReportStudio.Model"   d:DataContext="{d:DesignInstance Type=viewModels:DataSourceViewModel}"
              >
    <UserControl.Resources>
         <HierarchicalDataTemplate DataType="{x:Type aakCollection:AakCollectionViewModel}" ItemsSource="{Binding Items}">
@@ -73,7 +72,7 @@
         <StackPanel Grid.Row="1">
             <Button  Command="{Binding ActiveCommand, Mode=OneWay}"
                      
-                     Content="{Binding  Source={x:Static lang:LangResource.Create}}" Height="20" />
+                     Content="{Binding  Source={x:Static langRes:LangResource.Create}}" Height="20" />
 
         </StackPanel>
     </Grid>

@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:models="clr-namespace:CommunityToolkit.ReportEditor.Shell.Models"
     xmlns:pages1="clr-namespace:MasterNeverDown.ReportStudio.Viewer.Views.Pages"
+    xmlns:models="clr-namespace:MasterNeverDown.ReportStudio.Viewer.Models"
     Title="DataPage"
     d:DataContext="{d:DesignInstance pages1:DataPage,
                                      IsDesignTimeCreatable=False}"

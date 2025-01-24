@@ -1,6 +1,4 @@
-using Wpf.Ui;
-
-namespace CommunityToolkit.ReportEditor.Shell.Services;
+namespace MasterNeverDown.ReportStudio.Viewer.Services;
 
 /// <summary>
 /// Service that provides pages for navigation.

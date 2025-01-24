@@ -1,8 +1,7 @@
 ﻿using System.Windows.Media;
-using CommunityToolkit.ReportEditor.Shell.Models;
-using Wpf.Ui.Controls;
+using MasterNeverDown.ReportStudio.Viewer.Models;
 
-namespace CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
+namespace MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 
 public partial class DataViewModel : ObservableObject, INavigationAware
 {

@@ -77,6 +77,14 @@
 
 - [ ] cron
 
+### 主题切换
+- [x] Dark
+- [x] ight
+- [x] Green
+
+### 双语切换
+- [x] en
+- [x] cn
 
 
 ## 3.LICENSE

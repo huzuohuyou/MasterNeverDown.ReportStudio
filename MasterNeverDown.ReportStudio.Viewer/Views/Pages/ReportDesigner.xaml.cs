@@ -1,6 +1,4 @@
-using System.Windows.Controls;
-
-namespace CommunityToolkit.ReportEditor.Shell.Views.Pages;
+namespace MasterNeverDown.ReportStudio.Viewer.Views.Pages;
 
 public partial class ReportDesigner : Page
 {

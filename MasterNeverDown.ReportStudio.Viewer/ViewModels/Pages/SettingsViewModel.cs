@@ -1,7 +1,6 @@
 ﻿using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
-namespace CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
+namespace MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 
 public partial class SettingsViewModel : ObservableObject, INavigationAware
 {

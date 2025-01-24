@@ -1,4 +1,4 @@
-﻿namespace CommunityToolkit.ReportEditor.Shell.ViewModels.Pages;
+﻿namespace MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 
 public partial class DashboardViewModel : ObservableObject
 {

@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.ReportEditor.Shell.Views.Windows;
-using Microsoft.Extensions.Hosting;
-using Wpf.Ui;
-
-namespace CommunityToolkit.ReportEditor.Shell.Services;
+﻿namespace MasterNeverDown.ReportStudio.Viewer.Services;
 
 /// <summary>
 /// Managed host of the application.
@@ -41,7 +37,7 @@ public class ApplicationHostService : IHostedService
     /// </summary>
     private async Task HandleActivationAsync()
     {
-        if (!Application.Current.Windows.OfType<MainWindow>().Any())
+        if (!System.Windows.Application.Current.Windows.OfType<MainWindow>().Any())
         {
             _navigationWindow = (
                 _serviceProvider.GetService(typeof(INavigationWindow)) as INavigationWindow

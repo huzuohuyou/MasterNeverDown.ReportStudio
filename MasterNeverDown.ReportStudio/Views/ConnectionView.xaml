@@ -9,7 +9,7 @@
              xmlns:viewmodels="clr-namespace:AakStudio.Shell.UI.Showcase.ViewModels"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:attachs="clr-namespace:AakStudio.Shell.UI.Showcase.Attachs"
-             xmlns:lang="clr-namespace:MasterNeverDown.ReportStudio.ToolBar.LangRes;assembly=MasterNeverDown.ReportStudio.ToolBar"
+             xmlns:langRes="clr-namespace:MasterNeverDown.ReportStudio.Model.LangRes;assembly=MasterNeverDown.ReportStudio.Model"
              mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="480"
              d:DataContext="{d:DesignInstance Type=viewmodels:ConnectionViewModel}"
              >
@@ -72,7 +72,7 @@
         </TreeView>
         <StackPanel Grid.Row="1">
             <Button  Command="{Binding ActiveCommand, Mode=OneWay}"
-                     Content="{Binding  Source={x:Static lang:LangResource.Create}}" Height="20"
+                     Content="{Binding  Source={x:Static langRes:LangResource.Create}}" Height="20"
 
                      ></Button>
            

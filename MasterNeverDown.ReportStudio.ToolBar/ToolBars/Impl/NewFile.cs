@@ -5,7 +5,7 @@
 
 using System.IO;
 using System.Windows.Forms;
-using MasterNeverDown.ReportStudio.ToolBar.LangRes;
+using MasterNeverDown.ReportStudio.Model.LangRes;
 using unvell.ReoGrid;
 using unvell.ReoGrid.IO;
 

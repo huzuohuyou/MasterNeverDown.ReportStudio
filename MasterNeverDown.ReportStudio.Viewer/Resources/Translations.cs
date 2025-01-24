@@ -1,4 +1,4 @@
-namespace CommunityToolkit.ReportEditor.Shell.Resources;
+namespace MasterNeverDown.ReportStudio.Viewer.Resources;
 
 public partial class Translations
 {
