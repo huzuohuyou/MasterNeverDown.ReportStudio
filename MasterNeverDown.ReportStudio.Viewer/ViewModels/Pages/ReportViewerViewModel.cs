@@ -1,27 +1,16 @@
+using MessageBox = System.Windows.Forms.MessageBox;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
 
 namespace MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 
 public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) : ObservableObject, INavigationAware
 {
-    private readonly bool _isInitialized = false;
-    private static string TemplateName;
-    private ReoGridControl _grid = null!;
-    private StackPanel _parameterContainer = null!;
+    public static string? TemplateName;
+    private ReoGridControl? _grid;
+    private StackPanel? _parameterContainer;
 
     public void OnNavigatedTo()
     {
-        if (_parameterContainer!=null)
-        { _grid.Reset();
-            InitializeViewModel();
-        }
-    }
-
-
-    [RelayCommand]
-    private void OnNavigationItemClick(string itemName)
-    {
-        TemplateName = itemName;
       
     }
 
@@ -43,18 +32,16 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
         LoadFile();
     }
 
-    private readonly List<Parameter> _parameters = [];
 
     private void LoadParameters()
     {
         if (string.IsNullOrWhiteSpace(TemplateName))
         {
-            System.Windows.Forms.MessageBox.Show(LangResource.Template_cant_null, LangResource.caption,
+            MessageBox.Show(LangResource.Template_cant_null, LangResource.caption,
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
 
-        _parameters.Clear();
         var template = dataSourceContext.Templates.FirstOrDefault(d => d.Name.Equals(TemplateName));
         var dataSource =
             dataSourceContext.DataSources.FirstOrDefault(d => template != null && d.Name.Equals(template.DataSource));
@@ -76,20 +63,19 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
                 continue;
             }
 
-            _parameters.Add(p);
             var label = new TextBlock
             {
                 Text = p.DisplayName,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            _parameterContainer.Children.Add(label);
+            _parameterContainer?.Children.Add(label);
             if (p.InputType == null)
             {
                 continue;
             }
 
             var element = ParameterBuildFactory.Factory.Build(p);
-            _parameterContainer.Children.Add(element);
+            _parameterContainer?.Children.Add(element);
         }
     }
 
@@ -97,7 +83,7 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
     {
         if (string.IsNullOrWhiteSpace(TemplateName))
         {
-            System.Windows.Forms.MessageBox.Show(LangResource.Template_cant_null, LangResource.caption,
+            MessageBox.Show(LangResource.Template_cant_null, LangResource.caption,
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
@@ -117,6 +103,11 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
             }
         }
 
+        if (_grid == null)
+        {
+            return;
+        }
+
         _grid.CurrentWorksheet.Reset();
         // grid = new ReoGridControl();
         _grid.Load(path, FileFormat._Auto, Encoding.Default);
@@ -126,5 +117,6 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
 
     public void OnNavigatedFrom()
     {
+        
     }
 }

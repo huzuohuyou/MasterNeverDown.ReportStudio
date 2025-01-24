@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 using MasterNeverDown.ReportStudio.Viewer.Views.Pages;
 using Microsoft.EntityFrameworkCore;
@@ -40,10 +41,11 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty] private ObservableCollection<MenuItem> _trayMenuItems =
         [new MenuItem { Header = "Home", Tag = "tray_home" }];
-
+    public ICommand NavigationItemClickCommand { get; }
     public MainWindowViewModel(DataSourceContext dataSourceContext)
     {
-        var reportViewerViewModel = new ReportViewerViewModel(DataSourceContext.Factory);
+        NavigationItemClickCommand = new RelayCommand<string>(OnNavigationItemClick);
+
         (from t in dataSourceContext.Templates select t).ForEachAsync(t =>
         {
             _menuItems.Add(new NavigationViewItem
@@ -51,10 +53,13 @@ public partial class MainWindowViewModel : ObservableObject
                 Content = t.Name,
                 Icon = new SymbolIcon { Symbol = SymbolRegular.DataHistogram24 },
                 TargetPageType = typeof(ReportViewerPage),
-                Command = reportViewerViewModel.NavigationItemClickCommand,
+                Command = NavigationItemClickCommand,
                 CommandParameter = t.Name
             });
         });
     }
-
+    private void OnNavigationItemClick(string itemName)
+    {
+        ReportViewerViewModel.TemplateName = itemName;
+    }
 }

@@ -52,8 +52,8 @@ public partial class App
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
             
-            services.AddSingleton<ReportViewerViewModel>();
-            services.AddSingleton<ReportViewerPage>();
+            services.AddTransient<ReportViewerViewModel>();
+            services.AddTransient<ReportViewerPage>();
   
         }).Build();
 
