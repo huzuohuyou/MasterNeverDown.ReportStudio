@@ -159,18 +159,18 @@
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                    <Button Width="80"
-                            Margin="0 0 15 0"
-                            Style="{StaticResource ToolBarButtonBaseStyle1}"
-                            Command="{Binding QueryCommand, Mode=OneWay}">
+                    <ui:Button Width="80"
+                               Margin="0 0 15 0"
+                               Appearance="Primary"
+                               Command="{Binding QueryCommand, Mode=OneWay}">
                         查询
-                    </Button>
-                    <Button Width="80"
+                    </ui:Button>
+                    <ui:Button Width="80"
 
-                            Command="{Binding ResetCommand, Mode=OneWay}"
-                            Style="{StaticResource ToolBarButtonBaseStyle1}">
+                               Command="{Binding ResetCommand, Mode=OneWay}"
+                              Appearance="Secondary">
                         打印预览
-                    </Button>
+                    </ui:Button>
                 </StackPanel>
                 <reoGrid:ReoGridControl Grid.ColumnSpan="2"
                                         Grid.Column="0"

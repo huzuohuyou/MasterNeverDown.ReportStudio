@@ -1,5 +1,7 @@
 using MessageBox = System.Windows.Forms.MessageBox;
-using TextBlock = Wpf.Ui.Controls.TextBlock;
+using TextBlock = System.Windows.Controls.TextBlock;
+
+// using TextBlock = Wpf.Ui.Controls.TextBlock;
 
 namespace MasterNeverDown.ReportStudio.Viewer.ViewModels.Pages;
 
@@ -11,7 +13,6 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
 
     public void OnNavigatedTo()
     {
-      
     }
 
     [RelayCommand]
@@ -117,6 +118,5 @@ public partial class ReportViewerViewModel(DataSourceContext dataSourceContext) 
 
     public void OnNavigatedFrom()
     {
-        
     }
 }
